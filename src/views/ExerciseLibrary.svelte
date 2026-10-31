@@ -8,6 +8,7 @@
   import { library } from '../lib/stores/library.svelte'
 
   let editing = $state<Exercise | null | undefined>()
+  let draftName = $state<string>()
 
   async function remove(exercise: Exercise) {
     const used = library.routinesUsing(exercise.id).map((r) => `„${r.name}“`)
@@ -34,6 +35,10 @@
     exercises={library.exercises}
     stickyClass="top-14"
     onselect={(e) => (editing = e)}
+    oncreate={(name) => {
+      draftName = name
+      editing = null
+    }}
   >
     {#snippet actions(exercise)}
       <button
@@ -52,4 +57,11 @@
   </ExerciseBrowser>
 </PageLayout>
 
-<ExerciseDialog exercise={editing} onclose={() => (editing = undefined)} />
+<ExerciseDialog
+  exercise={editing}
+  draftName={editing === null ? draftName : undefined}
+  onclose={() => {
+    editing = undefined
+    draftName = undefined
+  }}
+/>

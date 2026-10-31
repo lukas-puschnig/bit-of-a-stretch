@@ -3,6 +3,7 @@
   import type { Exercise } from '../lib/model/types'
   import { library } from '../lib/stores/library.svelte'
   import ExerciseBrowser from './ExerciseBrowser.svelte'
+  import ExerciseDialog from './ExerciseDialog.svelte'
   import Icon from './Icon.svelte'
 
   interface Props {
@@ -15,6 +16,8 @@
 
   let dialog: HTMLDialogElement | undefined = $state()
   let added = $state<{ name: string; at: number }>()
+  /** Name for the exercise being created; undefined while the dialog is closed. */
+  let creating = $state<string>()
 
   $effect(() => {
     if (open && !dialog?.open) dialog?.showModal()
@@ -51,7 +54,11 @@
       </button>
     </header>
     <div class="min-h-0 flex-1 overflow-y-auto px-4 pb-24">
-      <ExerciseBrowser exercises={library.exercises} onselect={pick}>
+      <ExerciseBrowser
+        exercises={library.exercises}
+        onselect={pick}
+        oncreate={(name) => (creating = name)}
+      >
         {#snippet actions(exercise)}
           <button
             type="button"
@@ -76,4 +83,11 @@
       </p>
     {/key}
   {/if}
+  <!-- Inside the picker so it stacks above it; a new exercise is added right away. -->
+  <ExerciseDialog
+    exercise={creating === undefined ? undefined : null}
+    draftName={creating}
+    onsave={pick}
+    onclose={() => (creating = undefined)}
+  />
 </dialog>

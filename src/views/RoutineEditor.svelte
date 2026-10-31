@@ -41,6 +41,22 @@
     restTime: restTime ?? 0,
     entries: entries.map(({ key: _key, ...entry }) => entry),
   })
+  // Compared against the state on open to warn before unsaved changes get lost.
+  const serialize = (r: Routine) => JSON.stringify(r)
+  // svelte-ignore state_referenced_locally
+  const pristine = serialize(routine)
+  let saved = $state(false)
+  const dirty = $derived(!saved && serialize(routine) !== pristine)
+
+  $effect(() => router.guardLeave(() => !dirty || confirm(t('editor.confirmLeave'))))
+
+  $effect(() => {
+    if (!dirty) return
+    const warn = (event: BeforeUnloadEvent) => event.preventDefault()
+    window.addEventListener('beforeunload', warn)
+    return () => window.removeEventListener('beforeunload', warn)
+  })
+
   const switchDefault = $derived(library.settings.defaultSwitchTime)
   const plan = $derived(buildPlan(routine, library.exerciseById, switchDefault))
 
@@ -76,12 +92,14 @@
       return (error = t('editor.errorDuplicate', { name: routine.name }))
     }
     await library.saveRoutine(routine, original?.name)
+    saved = true
     router.go({ name: 'home' })
   }
 
   async function remove() {
     if (!original || !confirm(t('editor.confirmDelete', { name: original.name }))) return
     await library.deleteRoutine(original.name)
+    saved = true
     router.go({ name: 'home' })
   }
 </script>

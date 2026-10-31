@@ -22,9 +22,11 @@
     onselect?: (exercise: Exercise) => void
     /** Classes for the sticky search bar, so it sits below the surrounding header. */
     stickyClass?: string
+    /** Offers to create an exercise, named after the search if there is one. */
+    oncreate?: (name: string) => void
   }
 
-  let { exercises, actions, onselect, stickyClass = 'top-0' }: Props = $props()
+  let { exercises, actions, onselect, stickyClass = 'top-0', oncreate }: Props = $props()
 
   let query = $state('')
   let filter = $state<CategoryFilter>('all')
@@ -133,3 +135,16 @@
 {:else}
   <p class="py-8 text-center text-muted">{t('library.empty')}</p>
 {/each}
+
+{#if oncreate}
+  <button
+    type="button"
+    class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-line px-4 py-4 font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+    onclick={() => oncreate(query.trim())}
+  >
+    <Icon name="plus" class="size-5 shrink-0" />
+    <span class="truncate">
+      {query.trim() ? t('library.createNamed', { name: query.trim() }) : t('library.create')}
+    </span>
+  </button>
+{/if}

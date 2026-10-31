@@ -99,6 +99,7 @@ export const de = {
   'editor.errorName': 'Bitte einen Namen eingeben.',
   'editor.errorDuplicate': 'Eine Routine „{name}“ gibt es schon.',
   'editor.confirmDelete': 'Routine „{name}“ löschen?',
+  'editor.confirmLeave': 'Ungespeicherte Änderungen verwerfen?',
 
   'stepper.decrease': '{label} verringern',
   'stepper.increase': '{label} erhöhen',
@@ -122,6 +123,8 @@ export const de = {
   'library.search': 'Übung suchen …',
   'library.all': 'Alle',
   'library.empty': 'Keine Übungen gefunden.',
+  'library.create': 'Neue Übung anlegen',
+  'library.createNamed': '„{name}“ als neue Übung anlegen',
   'library.bilateralDetail': 'beidseitig · je {duration} · gesamt {total}',
   'library.confirmDelete': '„{name}“ löschen?',
   'library.confirmDeleteUsed':
@@ -313,6 +316,7 @@ export const en: Record<MessageKey, string> = {
   'editor.errorName': 'Please enter a name.',
   'editor.errorDuplicate': 'A routine called “{name}” already exists.',
   'editor.confirmDelete': 'Delete routine “{name}”?',
+  'editor.confirmLeave': 'Discard unsaved changes?',
 
   'stepper.decrease': 'Decrease {label}',
   'stepper.increase': 'Increase {label}',
@@ -336,6 +340,8 @@ export const en: Record<MessageKey, string> = {
   'library.search': 'Search exercises …',
   'library.all': 'All',
   'library.empty': 'No exercises found.',
+  'library.create': 'Create new exercise',
+  'library.createNamed': 'Create “{name}” as a new exercise',
   'library.bilateralDetail': 'both sides · {duration} each · {total} total',
   'library.confirmDelete': 'Delete “{name}”?',
   'library.confirmDeleteUsed':

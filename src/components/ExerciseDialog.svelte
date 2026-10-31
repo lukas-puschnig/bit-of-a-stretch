@@ -9,10 +9,13 @@
   interface Props {
     /** The exercise to edit, `null` for a new one, `undefined` when closed. */
     exercise: Exercise | null | undefined
+    /** Prefills the name of a new exercise. */
+    draftName?: string
     onclose: () => void
+    onsave?: (exercise: Exercise) => void
   }
 
-  let { exercise, onclose }: Props = $props()
+  let { exercise, draftName, onclose, onsave }: Props = $props()
 
   let dialog: HTMLDialogElement | undefined = $state()
   let name = $state('')
@@ -28,7 +31,7 @@
       dialog?.close()
       return
     }
-    name = exercise?.name ?? ''
+    name = exercise?.name ?? draftName ?? ''
     category = exercise?.category ?? ''
     notes = exercise?.notes ?? ''
     image = exercise?.image ?? ''
@@ -40,7 +43,7 @@
 
   async function save(event: SubmitEvent) {
     event.preventDefault()
-    await library.saveExercise({
+    const saved: Exercise = {
       id: exercise?.id ?? createId(name),
       name: name.trim(),
       ...(category && { category }),
@@ -49,7 +52,9 @@
       duration: duration ?? TIMING.duration.initial,
       bilateral,
       ...(bilateral && switchTime !== undefined && { switchTime }),
-    })
+    }
+    await library.saveExercise(saved)
+    onsave?.(saved)
     onclose()
   }
 </script>

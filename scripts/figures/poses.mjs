@@ -38,6 +38,12 @@ export const poses = {
     near: { ...STAND, ...HANG },
     highlight: ['neck'],
   },
+  'neck-flexion': {
+    torso: -90,
+    head: -25,
+    near: { ...STAND, ...HANG },
+    highlight: ['neck'],
+  },
 
   // Shoulders & chest
   'doorway-pec': {
@@ -175,11 +181,24 @@ export const poses = {
     near: { leg: [-130, 10], foot: 10, reach: 'near.knee', bend: 1 },
     highlight: ['torso'],
   },
+  diver: {
+    torso: -42,
+    head: 15,
+    near: { leg: [72, 104], foot: 0, arm: [8, 8] },
+    highlight: ['torso', 'neck'],
+  },
   'jefferson-curl': {
     torso: 125,
     head: 110,
     near: { leg: [86, 92], foot: 0, reach: { floor: -110 }, bend: -1 },
     highlight: ['torso', 'near.thigh'],
+  },
+  'modified-seated-twist': {
+    torso: -88,
+    head: -80,
+    near: { leg: [-55, 65], foot: 0, reach: 'near.knee', bend: -1 },
+    far: { leg: [0, 0], foot: -80, reach: { floor: -90 }, bend: 1 },
+    highlight: ['torso'],
   },
 
   // Hips & glutes
@@ -234,6 +253,13 @@ export const poses = {
     far: { leg: [5, 90], foot: 0 },
     highlight: ['near.thigh'],
   },
+  'deep-split-squat': {
+    torso: -88,
+    near: { leg: [118, 172], foot: 175, reach: 'far.knee', bend: -1 },
+    far: { leg: [-12, 92], foot: 0 },
+    highlight: ['near.thigh'],
+  },
+
   'couch-stretch': {
     torso: -84,
     near: { leg: [102, -90], foot: -90, reach: 'far.knee', bend: -1 },
@@ -261,6 +287,7 @@ export const poses = {
     near: { leg: [84, 90], foot: 0, reach: { floor: -40 }, bend: -1 },
     highlight: ['near.thigh', 'near.shin'],
   },
+
   'half-split': {
     torso: -32,
     head: -25,
