@@ -176,6 +176,8 @@ export const de = {
   'data.theme': 'Darstellung',
   'data.language': 'Sprache',
   'data.defaultSwitch': 'Standard-Seitenwechsel',
+  'data.images': 'Übungsbilder anzeigen',
+  'data.imagesHint': 'Im Timer-Ring und in den Übungslisten',
   'data.catalog': 'Übungskatalog',
   'data.catalogHint':
     'Ergänzt Übungen aus dem mitgelieferten Katalog, die dir noch fehlen. Deine eigenen und geänderten Übungen bleiben unverändert.',
@@ -385,6 +387,8 @@ export const en: Record<MessageKey, string> = {
   'data.theme': 'Appearance',
   'data.language': 'Language',
   'data.defaultSwitch': 'Default side switch',
+  'data.images': 'Show exercise images',
+  'data.imagesHint': 'In the timer ring and exercise lists',
   'data.catalog': 'Exercise catalog',
   'data.catalogHint':
     'Adds exercises from the built-in catalog that you do not have yet. Your own and edited exercises stay as they are.',

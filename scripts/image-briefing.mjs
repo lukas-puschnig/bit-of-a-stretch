@@ -48,6 +48,11 @@ gedacht. Es beschreibt, wie die Bilder aussehen sollen, und listet alle ${catalo
 Kann die Instanz keine Rasterbilder erzeugen, sind **SVG-Illustrationen** ausdrücklich
 erwünscht: Sie bleiben klein, scharf und werden ebenfalls automatisch erkannt.
 
+Derzeit liegen dort generierte Piktogramme als Platzhalter (\`<id>.svg\`, erzeugt mit
+\`npm run images\` aus \`scripts/figures/poses.mjs\`). Ein Rasterbild mit gleicher ID
+(\`.webp\`, \`.png\`, \`.jpg\`) hat Vorrang; die Platzhalter müssen also nicht gelöscht werden.
+In der App sind Bilder unter *Daten & Einstellungen → Übungsbilder anzeigen* schaltbar.
+
 ## Bildgestaltung
 
 **Komposition**

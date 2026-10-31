@@ -154,6 +154,12 @@
         disabled={!Announcer.supported}
         onchange={(voiceEnabled) => library.updateSettings({ voiceEnabled })}
       />
+      <Switch
+        label={t('data.images')}
+        hint={t('data.imagesHint')}
+        checked={library.settings.showImages}
+        onchange={(showImages) => library.updateSettings({ showImages })}
+      />
       <div class="max-w-52">
         <Stepper
           label={t('data.defaultSwitch')}

@@ -58,6 +58,7 @@ export interface Settings {
   /** Beeps and the closing gong. */
   audioEnabled: boolean
   voiceEnabled: boolean
+  showImages: boolean
   defaultSwitchTime: number
   theme: ThemePreference
   language: Locale
@@ -66,6 +67,8 @@ export interface Settings {
 export const DEFAULT_SETTINGS: Settings = {
   audioEnabled: true,
   voiceEnabled: true,
+  // The bundled images are placeholders for now.
+  showImages: false,
   defaultSwitchTime: 9,
   theme: 'system',
   language: 'de',

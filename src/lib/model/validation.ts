@@ -115,6 +115,8 @@ export function parseSettings(value: unknown): Settings {
       typeof value.audioEnabled === 'boolean' ? value.audioEnabled : DEFAULT_SETTINGS.audioEnabled,
     voiceEnabled:
       typeof value.voiceEnabled === 'boolean' ? value.voiceEnabled : DEFAULT_SETTINGS.voiceEnabled,
+    showImages:
+      typeof value.showImages === 'boolean' ? value.showImages : DEFAULT_SETTINGS.showImages,
     defaultSwitchTime:
       optionalSeconds(value, 'defaultSwitchTime', 'settings') ?? DEFAULT_SETTINGS.defaultSwitchTime,
     theme: THEME_PREFERENCES.find((t) => t === value.theme) ?? DEFAULT_SETTINGS.theme,
