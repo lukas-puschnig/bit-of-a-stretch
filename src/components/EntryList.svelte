@@ -33,7 +33,7 @@
         type="button"
         class={[
           'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors',
-          isCurrent ? 'bg-white/10' : 'hover:bg-white/5',
+          isCurrent ? 'bg-tint/10' : 'hover:bg-tint/5',
           entry.index < current && 'opacity-45',
         ]}
         onclick={() => onselect?.(entry.index)}
@@ -42,7 +42,7 @@
         <span
           class={[
             'grid size-7 shrink-0 place-items-center rounded-full text-xs font-semibold tabular-nums',
-            isCurrent ? 'bg-phase-work text-white' : 'bg-white/8 text-muted',
+            isCurrent ? 'bg-phase-work text-white' : 'bg-tint/8 text-muted',
           ]}>{entry.index + 1}</span
         >
         <span class="min-w-0 flex-1">

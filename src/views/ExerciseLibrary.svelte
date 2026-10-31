@@ -62,7 +62,7 @@
         >
         <button
           type="button"
-          class="icon-btn size-9 text-rose-300"
+          class="icon-btn size-9 text-danger"
           aria-label="{exercise.name} löschen"
           onclick={() => remove(exercise)}><Icon name="trash" class="size-5" /></button
         >

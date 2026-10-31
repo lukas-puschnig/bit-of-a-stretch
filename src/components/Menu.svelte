@@ -59,8 +59,8 @@
         <li>
           <a
             class={[
-              'flex items-center gap-3 rounded-xl px-3 py-3 font-medium hover:bg-white/5',
-              router.route.name === link.route.name && 'bg-white/8',
+              'flex items-center gap-3 rounded-xl px-3 py-3 font-medium hover:bg-tint/5',
+              router.route.name === link.route.name && 'bg-tint/8',
             ]}
             href={href(link.route)}
             onclick={close}
@@ -89,8 +89,8 @@
           <li>
             <a
               class={[
-                'flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-white/5',
-                playing === routine.name && 'bg-white/8',
+                'flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-tint/5',
+                playing === routine.name && 'bg-tint/8',
               ]}
               href={href({ name: 'play', routine: routine.name })}
               onclick={close}

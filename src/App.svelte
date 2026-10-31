@@ -2,6 +2,7 @@
   import Menu from './components/Menu.svelte'
   import { router } from './lib/router.svelte'
   import { library } from './lib/stores/library.svelte'
+  import { useTheme } from './lib/theme'
   import DataView from './views/DataView.svelte'
   import ExerciseLibrary from './views/ExerciseLibrary.svelte'
   import HomeView from './views/HomeView.svelte'
@@ -9,6 +10,8 @@
   import RoutineEditor from './views/RoutineEditor.svelte'
 
   const route = $derived(router.route)
+
+  $effect(() => useTheme(library.settings.theme))
 </script>
 
 {#if !library.ready}

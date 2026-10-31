@@ -140,7 +140,7 @@
     {:else}
       <div class="flex min-h-0 flex-1 flex-col gap-3">
         {#if plan.missingExerciseIds.length > 0}
-          <p class="{narrow} rounded-lg bg-amber-500/10 py-2 text-xs text-amber-300">
+          <p class="{narrow} rounded-lg bg-amber-500/10 py-2 text-xs text-warning">
             {plan.missingExerciseIds.length} Übung(en) fehlen in der Bibliothek und werden übersprungen.
           </p>
         {/if}

@@ -13,7 +13,7 @@
 
 <div class="flex shrink-0 flex-col gap-1.5">
   <div
-    class="h-1.5 overflow-hidden rounded-full bg-white/8"
+    class="h-1.5 overflow-hidden rounded-full bg-tint/8"
     role="progressbar"
     aria-label="Gesamtfortschritt"
     aria-valuemin={0}

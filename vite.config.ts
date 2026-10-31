@@ -8,6 +8,10 @@ const base = process.env.BASE_PATH ?? '/'
 
 export default defineConfig({
   base,
+  build: {
+    // Notices of all bundled dependencies, linked from the settings page.
+    license: { fileName: 'third-party-licenses.md' },
+  },
   plugins: [
     tailwindcss(),
     svelte(),

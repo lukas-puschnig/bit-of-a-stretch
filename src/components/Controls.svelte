@@ -13,12 +13,7 @@
 </script>
 
 <div class="flex shrink-0 items-center justify-center gap-8">
-  <button
-    type="button"
-    class="icon-btn size-16 bg-white/5"
-    aria-label="Zurück"
-    onclick={onprevious}
-  >
+  <button type="button" class="icon-btn size-16 bg-tint/5" aria-label="Zurück" onclick={onprevious}>
     <Icon name="prev" class="size-7" />
   </button>
   <button
@@ -30,7 +25,7 @@
   >
     <Icon name={running ? 'pause' : 'play'} filled class="size-9" />
   </button>
-  <button type="button" class="icon-btn size-16 bg-white/5" aria-label="Weiter" onclick={onnext}>
+  <button type="button" class="icon-btn size-16 bg-tint/5" aria-label="Weiter" onclick={onnext}>
     <Icon name="next" class="size-7" />
   </button>
 </div>

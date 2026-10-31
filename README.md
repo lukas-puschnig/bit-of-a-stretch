@@ -52,3 +52,13 @@ werden. Das Bild erscheint dann in der Mitte des Timer-Rings.
 Eigene Übungen und Routinen liegen in IndexedDB, also nur in diesem Browser auf diesem Gerät.
 Export und Import als JSON (Menü → Daten & Einstellungen) dienen als Backup und zum Übertragen
 zwischen Geräten.
+
+## Lizenz
+
+[MIT](LICENSE) © 2026 Lukas Puschnig
+
+Alle mitgelieferten Abhängigkeiten stehen unter freien Lizenzen (MIT bzw. ISC). Ihre Lizenztexte
+erzeugt der Build als `third-party-licenses.md`; die App verlinkt sie unter
+*Daten & Einstellungen → Über & Lizenzen*. Die App liefert keine eigenen Schriften aus, sondern
+nutzt die Systemschrift. Bilder für Übungen nur verwenden, wenn sie selbst erstellt oder frei
+lizenziert sind (z. B. CC0, CC BY mit Namensnennung).

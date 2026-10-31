@@ -31,14 +31,20 @@ export interface Routine {
   entries: RoutineEntry[]
 }
 
+export const THEME_PREFERENCES = ['system', 'light', 'dark'] as const
+
+export type ThemePreference = (typeof THEME_PREFERENCES)[number]
+
 export interface Settings {
   audioEnabled: boolean
   defaultSwitchTime: number
+  theme: ThemePreference
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   audioEnabled: true,
   defaultSwitchTime: 5,
+  theme: 'system',
 }
 
 export type Side = 'left' | 'right'

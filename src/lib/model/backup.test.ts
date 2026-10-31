@@ -33,6 +33,11 @@ describe('backup round trip', () => {
     expect(() => parseBackup(JSON.stringify(backup))).toThrow(/mehrfach/)
   })
 
+  it('ignores unknown theme values', () => {
+    const backup = createBackup([], [], { ...DEFAULT_SETTINGS, theme: 'neon' as 'dark' })
+    expect(parseBackup(JSON.stringify(backup)).settings.theme).toBe('system')
+  })
+
   it('falls back to default settings', () => {
     const backup = { ...createBackup([], [], DEFAULT_SETTINGS), settings: undefined }
     expect(parseBackup(JSON.stringify(backup)).settings).toEqual(DEFAULT_SETTINGS)

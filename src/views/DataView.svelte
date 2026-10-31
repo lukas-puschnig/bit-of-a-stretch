@@ -7,6 +7,13 @@
   import { ValidationError } from '../lib/model/validation'
   import { isStoragePersisted, requestPersistentStorage } from '../lib/storage/db'
   import { library, type ImportMode } from '../lib/stores/library.svelte'
+  import type { ThemePreference } from '../lib/model/types'
+
+  const THEME_OPTIONS: { value: ThemePreference; label: string }[] = [
+    { value: 'system', label: 'System' },
+    { value: 'light', label: 'Hell' },
+    { value: 'dark', label: 'Dunkel' },
+  ]
 
   let persisted = $state<boolean>()
   let pending = $state<Backup>()
@@ -72,9 +79,9 @@
 <PageLayout title="Daten & Einstellungen" back={{ name: 'home' }}>
   <div class="flex flex-col gap-6">
     <section
-      class="flex gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-100"
+      class="flex gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-fg"
     >
-      <Icon name="info" class="size-5 shrink-0 text-amber-300" />
+      <Icon name="info" class="size-5 shrink-0 text-warning" />
       <div class="space-y-2">
         <p>
           Deine Übungen und Routinen liegen <strong>nur in diesem Browser auf diesem Gerät</strong>.
@@ -83,7 +90,7 @@
         </p>
         <p>Exportiere regelmäßig ein Backup. Darüber kannst du auch zwischen Geräten übertragen.</p>
         {#if library.storageError}
-          <p class="font-medium text-rose-300">{library.storageError}</p>
+          <p class="font-medium text-danger">{library.storageError}</p>
         {/if}
       </div>
     </section>
@@ -92,7 +99,7 @@
       <p
         class={[
           'rounded-lg px-3 py-2 text-sm',
-          message.error ? 'bg-rose-500/10 text-rose-300' : 'bg-emerald-500/10 text-emerald-300',
+          message.error ? 'bg-rose-500/10 text-danger' : 'bg-emerald-500/10 text-success',
         ]}
         role="status"
       >
@@ -167,6 +174,31 @@
 
     <section class="flex flex-col gap-4 card p-4">
       <h2 class="font-semibold">Einstellungen</h2>
+      <fieldset>
+        <legend class="label">Darstellung</legend>
+        <div class="grid grid-cols-3 gap-1 rounded-xl bg-surface-2 p-1">
+          {#each THEME_OPTIONS as option (option.value)}
+            <label
+              class={[
+                'cursor-pointer rounded-lg py-2 text-center text-sm font-medium transition-colors has-focus-visible:outline-2 has-focus-visible:outline-accent',
+                library.settings.theme === option.value
+                  ? 'bg-surface text-fg shadow-sm'
+                  : 'text-muted hover:text-fg',
+              ]}
+            >
+              <input
+                type="radio"
+                name="theme"
+                class="sr-only"
+                value={option.value}
+                checked={library.settings.theme === option.value}
+                onchange={() => library.updateSettings({ theme: option.value })}
+              />
+              {option.label}
+            </label>
+          {/each}
+        </div>
+      </fieldset>
       <label class="flex items-center justify-between gap-3">
         <span>
           <span class="block">Ton</span>
@@ -190,6 +222,32 @@
           }
         />
       </div>
+    </section>
+
+    <section class="card p-4 text-sm">
+      <h2 class="font-semibold">Über & Lizenzen</h2>
+      <p class="mt-1 text-muted">
+        Bit of a Stretch verwendet nur freie Open-Source-Software unter MIT- bzw. ISC-Lizenz und die
+        Systemschrift deines Geräts.
+      </p>
+      <ul class="mt-2 flex flex-col gap-1">
+        <li>
+          <a
+            class="text-accent underline"
+            href="{import.meta.env.BASE_URL}third-party-licenses.md"
+            target="_blank"
+            rel="noopener">Lizenzhinweise der App-Pakete (Svelte, idb, clsx)</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-accent underline"
+            href="https://github.com/GoogleChrome/workbox/blob/v7/LICENSE"
+            target="_blank"
+            rel="noopener">Workbox (Offline-Unterstützung), MIT, © Google LLC</a
+          >
+        </li>
+      </ul>
     </section>
 
     <section class="card p-4">

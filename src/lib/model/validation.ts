@@ -1,5 +1,6 @@
 import {
   DEFAULT_SETTINGS,
+  THEME_PREFERENCES,
   type Exercise,
   type Routine,
   type RoutineEntry,
@@ -102,6 +103,7 @@ export function parseSettings(value: unknown): Settings {
       typeof value.audioEnabled === 'boolean' ? value.audioEnabled : DEFAULT_SETTINGS.audioEnabled,
     defaultSwitchTime:
       optionalSeconds(value, 'defaultSwitchTime', 'settings') ?? DEFAULT_SETTINGS.defaultSwitchTime,
+    theme: THEME_PREFERENCES.find((t) => t === value.theme) ?? DEFAULT_SETTINGS.theme,
   }
 }
 

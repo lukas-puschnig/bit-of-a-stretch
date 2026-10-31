@@ -54,7 +54,7 @@
         r={RADIUS}
         fill="none"
         stroke="currentColor"
-        class="text-white/8"
+        class="text-tint/8"
         stroke-width="10"
       />
       <circle
