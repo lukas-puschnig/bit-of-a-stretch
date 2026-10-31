@@ -68,8 +68,13 @@
   }
 
   async function addCatalog() {
-    const added = await library.addMissingCatalogExercises(library.settings.language)
-    message = { text: t('data.catalogDone', { exercises: tc('count.exercises', added) }) }
+    const added = await library.addMissingCatalog(library.settings.language)
+    message = {
+      text: t('data.catalogDone', {
+        exercises: tc('count.exercises', added.exercises),
+        routines: tc('count.routines', added.routines),
+      }),
+    }
   }
 
   async function resetToSamples() {

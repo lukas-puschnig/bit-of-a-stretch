@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { LOCALES } from '../i18n/translate'
-import { missingCatalogExercises, sampleLibrary } from './catalog'
+import { missingCatalogExercises, missingCatalogRoutines, sampleLibrary } from './catalog'
 import { TIMING } from './types'
 
 describe.each(LOCALES)('sample library (%s)', (locale) => {
@@ -35,5 +35,13 @@ describe('missingCatalogExercises', () => {
       'en',
     )
     expect(missing).toEqual([all[0]])
+  })
+})
+
+describe('missingCatalogRoutines', () => {
+  it('treats a routine as present under its name in any language', () => {
+    const routines = sampleLibrary('en').routines
+    const existing = [sampleLibrary('de').routines[0]!.name, routines[1]!.name]
+    expect(missingCatalogRoutines(existing, 'en')).toEqual(routines.slice(2))
   })
 })

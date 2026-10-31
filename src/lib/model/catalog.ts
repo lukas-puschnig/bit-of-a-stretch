@@ -1,6 +1,6 @@
 import catalog from '../../data/catalog.json'
-import type { Locale } from '../i18n/translate'
-import type { Exercise } from './types'
+import { LOCALES, type Locale } from '../i18n/translate'
+import type { Exercise, Routine } from './types'
 import { parseLibrary, type Library } from './validation'
 
 type Localized = Record<Locale, string>
@@ -22,4 +22,13 @@ export function sampleLibrary(locale: Locale): Library {
 export function missingCatalogExercises(existing: Iterable<string>, locale: Locale): Exercise[] {
   const ids = new Set(existing)
   return sampleLibrary(locale).exercises.filter((e) => !ids.has(e.id))
+}
+
+/** Sample routines whose name, in any language, is not in `existing`. */
+export function missingCatalogRoutines(existing: Iterable<string>, locale: Locale): Routine[] {
+  const names = new Set(existing)
+  const translations = LOCALES.map((l) => sampleLibrary(l).routines)
+  return sampleLibrary(locale).routines.filter(
+    (_, i) => !translations.some((routines) => names.has(routines[i]!.name)),
+  )
 }

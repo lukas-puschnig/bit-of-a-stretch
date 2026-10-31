@@ -1,6 +1,6 @@
 import { detectLocale, type Locale } from '../i18n/translate'
 import { createBackup, mergeBy, type Backup } from '../model/backup'
-import { missingCatalogExercises, sampleLibrary } from '../model/catalog'
+import { missingCatalogExercises, missingCatalogRoutines, sampleLibrary } from '../model/catalog'
 import { DEFAULT_SETTINGS, type Exercise, type Routine, type Settings } from '../model/types'
 import { requestPersistentStorage, Storage } from '../storage/db'
 
@@ -163,15 +163,21 @@ class Library {
     return renamed
   }
 
-  /** Adds catalog exercises that are missing, e.g. after an app update. Returns how many. */
-  async addMissingCatalogExercises(locale: Locale): Promise<number> {
-    const missing = missingCatalogExercises(this.exerciseById.keys(), locale)
-    if (missing.length === 0) return 0
-    this.exercises = sortByName([...this.exercises, ...missing])
+  /**
+   * Adds catalog exercises and sample routines that are missing, e.g. after an
+   * app update. Returns how many of each.
+   */
+  async addMissingCatalog(locale: Locale): Promise<{ exercises: number; routines: number }> {
+    const exercises = missingCatalogExercises(this.exerciseById.keys(), locale)
+    const routines = missingCatalogRoutines(this.routineOrder(), locale)
+    this.exercises = sortByName([...this.exercises, ...exercises])
+    this.routines = [...this.routines, ...routines]
+    const order = this.routineOrder()
     await this.write(async (s) => {
-      for (const exercise of missing) await s.putExercise(exercise)
+      for (const exercise of exercises) await s.putExercise(exercise)
+      for (const routine of routines) await s.putRoutine(routine, order)
     })
-    return missing.length
+    return { exercises: exercises.length, routines: routines.length }
   }
 
   private applySampleData(locale: Locale) {

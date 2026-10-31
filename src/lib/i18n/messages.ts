@@ -181,11 +181,11 @@ export const de = {
   'data.defaultSwitch': 'Standard-Seitenwechsel',
   'data.images': 'Übungsbilder anzeigen',
   'data.imagesHint': 'Im Timer-Ring und in den Übungslisten',
-  'data.catalog': 'Übungskatalog',
+  'data.catalog': 'Katalog',
   'data.catalogHint':
-    'Ergänzt Übungen aus dem mitgelieferten Katalog, die dir noch fehlen. Deine eigenen und geänderten Übungen bleiben unverändert.',
-  'data.catalogButton': 'Fehlende Übungen ergänzen',
-  'data.catalogDone': 'Ergänzt: {exercises}.',
+    'Ergänzt Übungen und Beispielroutinen aus dem mitgelieferten Katalog, die dir noch fehlen, etwa nach einem Update. Deine eigenen und geänderten Einträge bleiben unverändert.',
+  'data.catalogButton': 'Fehlendes ergänzen',
+  'data.catalogDone': 'Ergänzt: {exercises}, {routines}.',
   'data.about': 'Über & Lizenzen',
   'data.aboutText':
     'Bit of a Stretch verwendet nur freie Open-Source-Software unter MIT- bzw. ISC-Lizenz und die Systemschrift deines Geräts.',
@@ -395,11 +395,11 @@ export const en: Record<MessageKey, string> = {
   'data.defaultSwitch': 'Default side switch',
   'data.images': 'Show exercise images',
   'data.imagesHint': 'In the timer ring and exercise lists',
-  'data.catalog': 'Exercise catalog',
+  'data.catalog': 'Catalog',
   'data.catalogHint':
-    'Adds exercises from the built-in catalog that you do not have yet. Your own and edited exercises stay as they are.',
-  'data.catalogButton': 'Add missing exercises',
-  'data.catalogDone': 'Added: {exercises}.',
+    'Adds exercises and sample routines from the built-in catalog that you do not have yet, e.g. after an update. Your own and edited entries stay as they are.',
+  'data.catalogButton': 'Add what is missing',
+  'data.catalogDone': 'Added: {exercises}, {routines}.',
   'data.about': 'About & licenses',
   'data.aboutText':
     'Bit of a Stretch only uses free open-source software under the MIT or ISC license and your device’s system font.',

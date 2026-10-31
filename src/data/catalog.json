@@ -747,6 +747,76 @@
   "routines": [
     {
       "name": {
+        "de": "Morgenroutine",
+        "en": "Morning routine"
+      },
+      "description": {
+        "de": "Wirbelsäule, Beinrückseite, Hüfte und Brust, ca. 20 Minuten.",
+        "en": "Spine, hamstrings, hips and chest, about 20 minutes."
+      },
+      "prepTime": 5,
+      "restTime": 12,
+      "entries": [
+        {
+          "exerciseId": "cat-cow",
+          "duration": 60
+        },
+        {
+          "exerciseId": "thread-the-needle",
+          "duration": 45
+        },
+        {
+          "exerciseId": "childs-pose",
+          "duration": 30
+        },
+        {
+          "exerciseId": "neck-flexion",
+          "duration": 45
+        },
+        {
+          "exerciseId": "diver",
+          "duration": 45
+        },
+        {
+          "exerciseId": "standing-forward-fold",
+          "duration": 45
+        },
+        {
+          "exerciseId": "deep-split-squat",
+          "duration": 60
+        },
+        {
+          "exerciseId": "modified-seated-twist",
+          "duration": 30
+        },
+        {
+          "exerciseId": "supine-twist",
+          "duration": 45
+        },
+        {
+          "exerciseId": "frog",
+          "duration": 45
+        },
+        {
+          "exerciseId": "pigeon",
+          "duration": 60
+        },
+        {
+          "exerciseId": "side-lunge",
+          "duration": 45
+        },
+        {
+          "exerciseId": "pancake",
+          "duration": 60
+        },
+        {
+          "exerciseId": "doorway-pec",
+          "duration": 60
+        }
+      ]
+    },
+    {
+      "name": {
         "de": "Morgen-Mobility",
         "en": "Morning mobility"
       },
