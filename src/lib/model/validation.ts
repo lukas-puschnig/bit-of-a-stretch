@@ -1,4 +1,7 @@
+import type { MessageKey } from '../i18n/messages'
+import { LOCALES, type MessageParams } from '../i18n/translate'
 import {
+  CATEGORIES,
   DEFAULT_SETTINGS,
   THEME_PREFERENCES,
   type Exercise,
@@ -7,10 +10,16 @@ import {
   type Settings,
 } from './types'
 
+/** Carries a message key so the UI can show the error in the current language. */
 export class ValidationError extends Error {
-  constructor(message: string) {
-    super(message)
+  readonly key: MessageKey
+  readonly params: MessageParams
+
+  constructor(key: MessageKey, params: MessageParams = {}) {
+    super(`${key} ${JSON.stringify(params)}`)
     this.name = 'ValidationError'
+    this.key = key
+    this.params = params
   }
 }
 
@@ -19,8 +28,10 @@ type Json = Record<string, unknown>
 const isObject = (value: unknown): value is Json =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
 
-function fail(path: string, expected: string): never {
-  throw new ValidationError(`${path}: ${expected} erwartet`)
+type Expected = 'Object' | 'Text' | 'Seconds' | 'List' | 'Boolean'
+
+function fail(path: string, expected: Expected): never {
+  throw new ValidationError(`validation.expected${expected}`, { path })
 }
 
 function requireString(obj: Json, key: string, path: string): string {
@@ -39,7 +50,7 @@ function optionalString(obj: Json, key: string, path: string): string | undefine
 function requireSeconds(obj: Json, key: string, path: string): number {
   const value = obj[key]
   if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
-    fail(`${path}.${key}`, 'Sekunden ≥ 0')
+    fail(`${path}.${key}`, 'Seconds')
   }
   return Math.round(value)
 }
@@ -50,7 +61,7 @@ function optionalSeconds(obj: Json, key: string, path: string): number | undefin
 
 function requireArray(obj: Json, key: string, path: string): unknown[] {
   const value = obj[key]
-  if (!Array.isArray(value)) fail(`${path}.${key}`, 'Liste')
+  if (!Array.isArray(value)) fail(`${path}.${key}`, 'List')
   return value
 }
 
@@ -60,11 +71,12 @@ function compact<T extends object>(obj: T): T {
 }
 
 export function parseExercise(value: unknown, path = 'exercise'): Exercise {
-  if (!isObject(value)) fail(path, 'Objekt')
-  if (typeof value.bilateral !== 'boolean') fail(`${path}.bilateral`, 'true/false')
+  if (!isObject(value)) fail(path, 'Object')
+  if (typeof value.bilateral !== 'boolean') fail(`${path}.bilateral`, 'Boolean')
   return compact({
     id: requireString(value, 'id', path),
     name: requireString(value, 'name', path),
+    category: CATEGORIES.find((c) => c === value.category),
     notes: optionalString(value, 'notes', path),
     image: optionalString(value, 'image', path),
     duration: requireSeconds(value, 'duration', path),
@@ -74,7 +86,7 @@ export function parseExercise(value: unknown, path = 'exercise'): Exercise {
 }
 
 function parseEntry(value: unknown, path: string): RoutineEntry {
-  if (!isObject(value)) fail(path, 'Objekt')
+  if (!isObject(value)) fail(path, 'Object')
   return compact({
     exerciseId: requireString(value, 'exerciseId', path),
     duration: optionalSeconds(value, 'duration', path),
@@ -84,7 +96,7 @@ function parseEntry(value: unknown, path: string): RoutineEntry {
 }
 
 export function parseRoutine(value: unknown, path = 'routine'): Routine {
-  if (!isObject(value)) fail(path, 'Objekt')
+  if (!isObject(value)) fail(path, 'Object')
   return compact({
     name: requireString(value, 'name', path),
     description: optionalString(value, 'description', path),
@@ -101,16 +113,19 @@ export function parseSettings(value: unknown): Settings {
   return {
     audioEnabled:
       typeof value.audioEnabled === 'boolean' ? value.audioEnabled : DEFAULT_SETTINGS.audioEnabled,
+    voiceEnabled:
+      typeof value.voiceEnabled === 'boolean' ? value.voiceEnabled : DEFAULT_SETTINGS.voiceEnabled,
     defaultSwitchTime:
       optionalSeconds(value, 'defaultSwitchTime', 'settings') ?? DEFAULT_SETTINGS.defaultSwitchTime,
     theme: THEME_PREFERENCES.find((t) => t === value.theme) ?? DEFAULT_SETTINGS.theme,
+    language: LOCALES.find((l) => l === value.language) ?? DEFAULT_SETTINGS.language,
   }
 }
 
-function assertUnique(keys: string[], label: string) {
+function assertUnique(keys: string[], error: MessageKey) {
   const seen = new Set<string>()
   for (const key of keys) {
-    if (seen.has(key)) throw new ValidationError(`${label} „${key}“ kommt mehrfach vor`)
+    if (seen.has(key)) throw new ValidationError(error, { key })
     seen.add(key)
   }
 }
@@ -121,20 +136,20 @@ export interface Library {
 }
 
 export function parseLibrary(value: unknown): Library {
-  if (!isObject(value)) fail('Datei', 'JSON-Objekt')
-  const exercises = requireArray(value, 'exercises', 'Datei').map((e, i) =>
+  if (!isObject(value)) fail('file', 'Object')
+  const exercises = requireArray(value, 'exercises', 'file').map((e, i) =>
     parseExercise(e, `exercises[${i}]`),
   )
-  const routines = requireArray(value, 'routines', 'Datei').map((r, i) =>
+  const routines = requireArray(value, 'routines', 'file').map((r, i) =>
     parseRoutine(r, `routines[${i}]`),
   )
   assertUnique(
     exercises.map((e) => e.id),
-    'Übungs-ID',
+    'validation.duplicateExercise',
   )
   assertUnique(
     routines.map((r) => r.name),
-    'Routine',
+    'validation.duplicateRoutine',
   )
   return { exercises, routines }
 }

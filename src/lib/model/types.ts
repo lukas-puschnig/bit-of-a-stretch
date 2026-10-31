@@ -1,10 +1,29 @@
+import type { Locale } from '../i18n/translate'
+
 /** All durations are whole seconds. */
+
+/** Body regions used to group the exercise library. */
+export const CATEGORIES = [
+  'neck',
+  'shoulders',
+  'arms',
+  'spine',
+  'hips',
+  'quads',
+  'hamstrings',
+  'adductors',
+  'calves',
+  'fullBody',
+] as const
+
+export type Category = (typeof CATEGORIES)[number]
 
 export interface Exercise {
   id: string
   name: string
+  category?: Category
   notes?: string
-  /** URL or path relative to the app's base URL. */
+  /** Image URL; without it the bundled catalog image for this id is used, if any. */
   image?: string
   /** Default duration; for bilateral exercises this is per side. */
   duration: number
@@ -36,16 +55,29 @@ export const THEME_PREFERENCES = ['system', 'light', 'dark'] as const
 export type ThemePreference = (typeof THEME_PREFERENCES)[number]
 
 export interface Settings {
+  /** Beeps and the closing gong. */
   audioEnabled: boolean
+  voiceEnabled: boolean
   defaultSwitchTime: number
   theme: ThemePreference
+  language: Locale
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   audioEnabled: true,
-  defaultSwitchTime: 5,
+  voiceEnabled: true,
+  defaultSwitchTime: 9,
   theme: 'system',
+  language: 'de',
 }
+
+/** Defaults for new routines and exercises, and the step of the +/- buttons. */
+export const TIMING = {
+  prep: { initial: 5, step: 5 },
+  rest: { initial: 12, step: 3 },
+  switch: { step: 3 },
+  duration: { initial: 60, step: 15 },
+} as const
 
 export type Side = 'left' | 'right'
 

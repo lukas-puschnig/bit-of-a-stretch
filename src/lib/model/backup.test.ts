@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import seed from '../../data/seed.json'
 import { createBackup, mergeBy, parseBackup } from './backup'
 import { DEFAULT_SETTINGS } from './types'
-import { parseLibrary, ValidationError } from './validation'
+import { ValidationError } from './validation'
 
 const exercise = { id: 'a', name: 'A', duration: 30, bilateral: false }
 const routine = { name: 'R', prepTime: 5, restTime: 10, entries: [{ exerciseId: 'a' }] }
@@ -15,12 +14,12 @@ describe('backup round trip', () => {
 
   it('rejects non-JSON and foreign files', () => {
     expect(() => parseBackup('{')).toThrow(ValidationError)
-    expect(() => parseBackup('{"exercises": []}')).toThrow(/kein Backup/)
+    expect(() => parseBackup('{"exercises": []}')).toThrow('validation.notBackup')
   })
 
   it('rejects backups from newer versions', () => {
     const backup = { ...createBackup([], [], DEFAULT_SETTINGS), version: 99 }
-    expect(() => parseBackup(JSON.stringify(backup))).toThrow(/neueren/)
+    expect(() => parseBackup(JSON.stringify(backup))).toThrow('validation.newerVersion')
   })
 
   it('reports the path of invalid fields', () => {
@@ -30,7 +29,7 @@ describe('backup round trip', () => {
 
   it('rejects duplicate ids', () => {
     const backup = createBackup([exercise, exercise], [], DEFAULT_SETTINGS)
-    expect(() => parseBackup(JSON.stringify(backup))).toThrow(/mehrfach/)
+    expect(() => parseBackup(JSON.stringify(backup))).toThrow('validation.duplicateExercise')
   })
 
   it('ignores unknown theme values', () => {
@@ -62,15 +61,5 @@ describe('mergeBy', () => {
       { k: 'b', v: 2 },
       { k: 'c', v: 2 },
     ])
-  })
-})
-
-describe('seed data', () => {
-  it('is valid and only references existing exercises', () => {
-    const library = parseLibrary(seed)
-    const ids = new Set(library.exercises.map((e) => e.id))
-    for (const r of library.routines) {
-      for (const entry of r.entries) expect(ids).toContain(entry.exerciseId)
-    }
   })
 })

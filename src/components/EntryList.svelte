@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SIDE_LABEL } from '../lib/model/phaseStyle'
+  import { t } from '../lib/i18n/i18n.svelte'
   import type { ResolvedEntry } from '../lib/model/types'
   import { formatDuration } from '../lib/util/format'
 
@@ -21,7 +21,7 @@
 
   const detail = (entry: ResolvedEntry) =>
     entry.bilateral
-      ? `${SIDE_LABEL.left} + ${SIDE_LABEL.right} · je ${formatDuration(entry.duration)}`
+      ? t('entry.bilateral', { duration: formatDuration(entry.duration) })
       : formatDuration(entry.duration)
 </script>
 

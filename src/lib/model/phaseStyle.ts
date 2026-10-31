@@ -1,11 +1,4 @@
-import type { PhaseKind, Side } from './types'
-
-export const PHASE_LABEL: Record<PhaseKind, string> = {
-  prep: 'Vorbereitung',
-  work: 'Übung',
-  switch: 'Seitenwechsel',
-  rest: 'Pause',
-}
+import type { PhaseKind } from './types'
 
 /** CSS custom property holding the phase color, see app.css. */
 export const PHASE_COLOR: Record<PhaseKind, string> = {
@@ -13,9 +6,4 @@ export const PHASE_COLOR: Record<PhaseKind, string> = {
   work: 'var(--color-phase-work)',
   switch: 'var(--color-phase-switch)',
   rest: 'var(--color-phase-rest)',
-}
-
-export const SIDE_LABEL: Record<Side, string> = {
-  left: 'Links',
-  right: 'Rechts',
 }

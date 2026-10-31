@@ -1,7 +1,7 @@
-import seed from '../../data/seed.json'
+import { detectLocale, type Locale } from '../i18n/translate'
 import { createBackup, mergeBy, type Backup } from '../model/backup'
+import { missingCatalogExercises, sampleLibrary } from '../model/catalog'
 import { DEFAULT_SETTINGS, type Exercise, type Routine, type Settings } from '../model/types'
-import { parseLibrary } from '../model/validation'
 import { requestPersistentStorage, Storage } from '../storage/db'
 
 export type ImportMode = 'replace' | 'merge'
@@ -16,8 +16,8 @@ class Library {
   routines = $state<Routine[]>([])
   settings = $state<Settings>({ ...DEFAULT_SETTINGS })
   ready = $state(false)
-  /** Set when changes cannot be saved in this browser. */
-  storageError = $state<string>()
+  /** True when changes cannot be saved in this browser. */
+  storageUnavailable = $state(false)
 
   readonly exerciseById = $derived(new Map(this.exercises.map((e) => [e.id, e])))
 
@@ -33,14 +33,13 @@ class Library {
         this.routines = stored.routines
         this.settings = { ...DEFAULT_SETTINGS, ...stored.settings }
       } else {
-        await this.loadSampleData()
+        await this.loadSampleData(detectLocale())
       }
     } catch (error) {
       console.error(error)
-      this.storageError =
-        'Der Browser erlaubt hier keine Speicherung (z. B. privater Modus). Änderungen gehen beim Schließen verloren.'
+      this.storageUnavailable = true
       this.storage = undefined
-      this.applySampleData()
+      this.applySampleData(detectLocale())
     }
     this.ready = true
   }
@@ -113,16 +112,73 @@ class Library {
     await this.writeAll()
   }
 
-  async loadSampleData() {
-    this.applySampleData()
+  /** Replaces everything with the built-in samples; keeps theme and sound settings. */
+  async loadSampleData(locale: Locale) {
+    this.applySampleData(locale)
     await this.writeAll()
   }
 
-  private applySampleData() {
-    const library = parseLibrary(seed)
+  /**
+   * Switches the language and translates sample exercises and routines the
+   * user has not renamed, so a fresh install follows the language switch.
+   * Returns renamed routines (old name → new name).
+   */
+  async setLanguage(locale: Locale): Promise<Map<string, string>> {
+    // A plain return value, not reactive state.
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const renamed = new Map<string, string>()
+    const from = this.settings.language
+    this.settings = { ...this.settings, language: locale }
+    if (from === locale) return renamed
+    const before = sampleLibrary(from)
+    const after = sampleLibrary(locale)
+
+    const exerciseText = new Map(before.exercises.map((e) => [e.id, e]))
+    const translatedExercises = new Map(after.exercises.map((e) => [e.id, e]))
+    this.exercises = sortByName(
+      this.exercises.map((e) => {
+        const old = exerciseText.get(e.id)
+        const next = translatedExercises.get(e.id)
+        if (!old || !next) return e
+        return {
+          ...e,
+          name: e.name === old.name ? next.name : e.name,
+          notes: e.notes === old.notes ? next.notes : e.notes,
+        }
+      }),
+    )
+
+    // Sample routines appear in the same order in every language.
+    const taken = new Set(this.routines.map((r) => r.name))
+    this.routines = this.routines.map((r) => {
+      const index = before.routines.findIndex((s) => s.name === r.name)
+      const next = after.routines[index]
+      if (index < 0 || !next || taken.has(next.name)) return r
+      renamed.set(r.name, next.name)
+      const description =
+        r.description === before.routines[index]!.description ? next.description : r.description
+      return { ...r, name: next.name, ...(description !== undefined && { description }) }
+    })
+    await this.writeAll()
+    return renamed
+  }
+
+  /** Adds catalog exercises that are missing, e.g. after an app update. Returns how many. */
+  async addMissingCatalogExercises(locale: Locale): Promise<number> {
+    const missing = missingCatalogExercises(this.exerciseById.keys(), locale)
+    if (missing.length === 0) return 0
+    this.exercises = sortByName([...this.exercises, ...missing])
+    await this.write(async (s) => {
+      for (const exercise of missing) await s.putExercise(exercise)
+    })
+    return missing.length
+  }
+
+  private applySampleData(locale: Locale) {
+    const library = sampleLibrary(locale)
     this.exercises = sortByName(library.exercises)
     this.routines = library.routines
-    this.settings = { ...DEFAULT_SETTINGS }
+    this.settings = { ...DEFAULT_SETTINGS, ...$state.snapshot(this.settings), language: locale }
   }
 
   private routineOrder() {

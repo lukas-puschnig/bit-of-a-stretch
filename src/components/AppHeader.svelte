@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
+  import { t } from '../lib/i18n/i18n.svelte'
   import { ui } from '../lib/stores/ui.svelte'
   import Icon from './Icon.svelte'
 
@@ -18,7 +19,7 @@
   <button
     type="button"
     class="icon-btn"
-    aria-label="Menü öffnen"
+    aria-label={t('nav.open')}
     onclick={() => (ui.menuOpen = true)}
   >
     <Icon name="menu" />

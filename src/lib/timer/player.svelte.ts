@@ -68,10 +68,15 @@ export class Player {
   }
 
   private update(state: TimerState) {
-    const indexChanged = state.index !== this.state.index
+    const previous = this.state
     this.state = state
-    if (indexChanged && state.status === 'running') {
+    // Starting fresh counts as entering the first phase, so it gets its signal too.
+    const fresh = previous.status === 'ready' || previous.status === 'finished'
+    if (state.status === 'running' && (state.index !== previous.index || fresh)) {
       this.emit({ type: 'phaseStart', index: state.index })
+    }
+    if (state.status === 'finished' && previous.status !== 'finished') {
+      this.emit({ type: 'finished' })
     }
     if (state.status === 'running') this.startLoop()
     else this.stopLoop()

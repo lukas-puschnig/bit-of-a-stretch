@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from '../lib/i18n/i18n.svelte'
   import { formatClock } from '../lib/util/format'
 
   interface Props {
@@ -15,7 +16,7 @@
   <div
     class="h-1.5 overflow-hidden rounded-full bg-tint/8"
     role="progressbar"
-    aria-label="Gesamtfortschritt"
+    aria-label={t('player.progress')}
     aria-valuemin={0}
     aria-valuemax={totalSeconds}
     aria-valuenow={Math.floor(elapsedSeconds)}

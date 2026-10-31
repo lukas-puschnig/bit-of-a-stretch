@@ -12,7 +12,8 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "docs:images": "node scripts/image-briefing.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

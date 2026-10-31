@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
   import { href, type Route } from '../lib/router.svelte'
+  import { t } from '../lib/i18n/i18n.svelte'
   import AppHeader from './AppHeader.svelte'
   import Icon from './Icon.svelte'
 
@@ -19,7 +20,7 @@
       <AppHeader {title}>
         {#snippet start()}
           {#if back}
-            <a class="icon-btn" href={href(back)} aria-label="Zurück">
+            <a class="icon-btn" href={href(back)} aria-label={t('common.back')}>
               <Icon name="back" />
             </a>
           {/if}

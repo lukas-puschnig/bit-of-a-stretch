@@ -1,5 +1,6 @@
 <script lang="ts">
   import Menu from './components/Menu.svelte'
+  import { i18n, t } from './lib/i18n/i18n.svelte'
   import { router } from './lib/router.svelte'
   import { library } from './lib/stores/library.svelte'
   import { useTheme } from './lib/theme'
@@ -12,10 +13,17 @@
   const route = $derived(router.route)
 
   $effect(() => useTheme(library.settings.theme))
+
+  $effect(() => {
+    // Until settings are loaded, the detected browser language applies.
+    if (!library.ready) return
+    i18n.locale = library.settings.language
+    document.documentElement.lang = library.settings.language
+  })
 </script>
 
 {#if !library.ready}
-  <div class="grid h-dvh place-items-center text-muted">Lädt …</div>
+  <div class="grid h-dvh place-items-center text-muted">{t('app.loading')}</div>
 {:else if route.name === 'play'}
   {@const routine = library.routine(route.routine)}
   {#if routine}

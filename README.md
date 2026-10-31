@@ -27,7 +27,9 @@ auf GitHub Pages. Einmalig in den Repo-Einstellungen unter *Settings → Pages �
 
 ```
 src/
-  data/seed.json          Beispielübungen und -routinen für den ersten Start
+  data/catalog.json       Übungskatalog und Beispielroutinen (Deutsch und Englisch)
+  assets/exercises/       Übungsbilder, <exercise-id>.webp, werden automatisch zugeordnet
+  lib/i18n/               Übersetzungen (messages.ts) und Hilfsfunktionen
   lib/model/              Typen, Auflösung Routine → Phasen (plan.ts), Validierung, Backup
   lib/timer/engine.ts     Reine Timer-Zustandsmaschine über die Phasenliste
   lib/timer/player.svelte.ts   Reaktive Hülle, treibt die Engine per requestAnimationFrame
@@ -43,9 +45,16 @@ Seitenwechsel überschreiben. Beim Abspielen wird sie in eine flache Liste von P
 
 ### Bilder
 
-Übungen haben ein optionales Feld `image`. Relative Pfade werden gegen die Basis-URL aufgelöst,
-Bilder können also z. B. unter `public/images/` abgelegt und als `images/pancake.webp` eingetragen
-werden. Das Bild erscheint dann in der Mitte des Timer-Rings.
+Bilder für Katalogübungen liegen als `src/assets/exercises/<exercise-id>.webp` im Repo und werden
+beim Build automatisch zugeordnet. Bei beidseitigen Übungen zeigt das Bild die linke Seite; für
+rechts spiegelt die App es. Vorgaben und Liste aller Übungen: [docs/exercise-images.md](docs/exercise-images.md),
+erzeugt mit `npm run docs:images`. Eigene Übungen können zusätzlich eine Bild-URL bekommen.
+
+### Sprachen
+
+Deutsch und Englisch. Texte stehen in `src/lib/i18n/messages.ts`; fehlt eine englische
+Übersetzung, schlägt die Typprüfung fehl. Katalog und Beispielroutinen sind in
+`src/data/catalog.json` zweisprachig gepflegt.
 
 ## Daten
 

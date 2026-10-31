@@ -32,14 +32,14 @@ export function parseBackup(text: string): Backup {
   try {
     raw = JSON.parse(text)
   } catch {
-    throw new ValidationError('Die Datei ist kein gültiges JSON')
+    throw new ValidationError('validation.notJson')
   }
   if (typeof raw !== 'object' || raw === null || (raw as Backup).format !== BACKUP_FORMAT) {
-    throw new ValidationError('Die Datei ist kein Backup dieser App')
+    throw new ValidationError('validation.notBackup')
   }
   const { version, exportedAt, settings } = raw as Partial<Backup>
   if (typeof version !== 'number' || version > BACKUP_VERSION) {
-    throw new ValidationError('Das Backup stammt aus einer neueren App-Version')
+    throw new ValidationError('validation.newerVersion')
   }
   return {
     format: BACKUP_FORMAT,

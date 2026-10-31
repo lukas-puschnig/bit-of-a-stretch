@@ -1,0 +1,618 @@
+{
+  "exercises": [
+    {
+      "id": "neck-side-stretch",
+      "category": "neck",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Seitliche Nackendehnung", "en": "Lateral neck stretch" },
+      "notes": {
+        "de": "Aufrecht sitzen, Ohr Richtung Schulter neigen, die Hand zieht sanft am Kopf. Gegenüberliegende Schulter nach unten schieben.",
+        "en": "Sit tall, tilt your ear towards your shoulder and let the hand gently pull the head. Push the opposite shoulder down."
+      }
+    },
+    {
+      "id": "neck-rotation",
+      "category": "neck",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Nackenrotation", "en": "Neck rotations" },
+      "notes": {
+        "de": "Kopf langsam von einer Seite zur anderen drehen, Blick führt, Schultern bleiben ruhig.",
+        "en": "Slowly turn the head from side to side, leading with your eyes. Keep the shoulders still."
+      }
+    },
+    {
+      "id": "chin-tuck",
+      "category": "neck",
+      "duration": 30,
+      "bilateral": false,
+      "name": { "de": "Chin Tucks", "en": "Chin tucks" },
+      "notes": {
+        "de": "Kinn waagerecht nach hinten schieben (Doppelkinn), kurz halten, lösen. Hinterkopf wird lang.",
+        "en": "Glide the chin straight back (double chin), hold briefly, release. Lengthen the back of the neck."
+      }
+    },
+    {
+      "id": "doorway-pec",
+      "category": "shoulders",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Brustdehnung im Türrahmen", "en": "Doorway chest stretch" },
+      "notes": {
+        "de": "Unterarm am Rahmen, Ellbogen auf Schulterhöhe, Körper sanft nach vorne lehnen.",
+        "en": "Forearm on the door frame, elbow at shoulder height, gently lean your body forward."
+      }
+    },
+    {
+      "id": "cross-body-shoulder",
+      "category": "shoulders",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Schulter-Querdehnung", "en": "Cross-body shoulder stretch" },
+      "notes": {
+        "de": "Gestreckten Arm vor der Brust zur Gegenseite ziehen, Schulter bleibt unten.",
+        "en": "Pull the straight arm across your chest towards the other side, keeping the shoulder down."
+      }
+    },
+    {
+      "id": "sleeper-stretch",
+      "category": "shoulders",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Sleeper Stretch", "en": "Sleeper stretch" },
+      "notes": {
+        "de": "Seitlage auf der zu dehnenden Schulter, Ellbogen 90°, Unterarm mit der anderen Hand sanft Richtung Boden drücken.",
+        "en": "Lie on the shoulder you want to stretch, elbow at 90°, gently press the forearm towards the floor with the other hand."
+      }
+    },
+    {
+      "id": "puppy-pose",
+      "category": "shoulders",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "Puppy Pose", "en": "Puppy pose" },
+      "notes": {
+        "de": "Aus dem Vierfüßlerstand Hände weit nach vorne wandern, Hüfte über den Knien, Brust Richtung Boden sinken lassen.",
+        "en": "From all fours walk the hands far forward, keep hips over knees and let the chest sink towards the floor."
+      }
+    },
+    {
+      "id": "wall-angels",
+      "category": "shoulders",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Wall Angels", "en": "Wall angels" },
+      "notes": {
+        "de": "Rücken und Arme an der Wand, Arme langsam wie beim Schneeengel hoch und runter gleiten lassen.",
+        "en": "Back and arms against the wall, slowly slide the arms up and down like a snow angel."
+      }
+    },
+    {
+      "id": "band-pass-through",
+      "category": "shoulders",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Schulterkreisen mit Band", "en": "Band pass-throughs" },
+      "notes": {
+        "de": "Band oder Stab breit greifen, gestreckte Arme über den Kopf nach hinten und zurück führen.",
+        "en": "Hold a band or stick wide, move the straight arms over your head to behind your back and return."
+      }
+    },
+    {
+      "id": "overhead-triceps",
+      "category": "arms",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Trizepsdehnung über Kopf", "en": "Overhead triceps stretch" },
+      "notes": {
+        "de": "Arm hinter den Kopf, Hand zwischen die Schulterblätter, andere Hand zieht den Ellbogen sanft.",
+        "en": "Reach the hand down between your shoulder blades, the other hand gently pulls the elbow."
+      }
+    },
+    {
+      "id": "biceps-wall",
+      "category": "arms",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Bizepsdehnung an der Wand", "en": "Wall biceps stretch" },
+      "notes": {
+        "de": "Handfläche auf Schulterhöhe an die Wand, Arm gestreckt, Körper langsam von der Wand wegdrehen.",
+        "en": "Palm on the wall at shoulder height, arm straight, slowly rotate your body away from the wall."
+      }
+    },
+    {
+      "id": "wrist-flexor",
+      "category": "arms",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Handgelenk-Beuger-Dehnung", "en": "Wrist flexor stretch" },
+      "notes": {
+        "de": "Vierfüßlerstand, Finger zeigen Richtung Knie, Handflächen flach, Gewicht langsam nach hinten verlagern.",
+        "en": "On all fours with fingers pointing towards your knees and palms flat, slowly shift your weight back."
+      }
+    },
+    {
+      "id": "wrist-extensor",
+      "category": "arms",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Handrücken-Dehnung", "en": "Wrist extensor stretch" },
+      "notes": {
+        "de": "Vierfüßlerstand, Handrücken auf dem Boden, Finger zeigen zu den Knien, vorsichtig nach hinten lehnen.",
+        "en": "On all fours with the backs of your hands on the floor and fingers towards the knees, carefully lean back."
+      }
+    },
+    {
+      "id": "cat-cow",
+      "category": "spine",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Katze-Kuh", "en": "Cat-cow" },
+      "notes": {
+        "de": "Im Vierfüßlerstand langsam zwischen Rundrücken und Hohlkreuz wechseln, Atmung mitführen.",
+        "en": "On all fours, slowly alternate between rounding and arching your back, moving with your breath."
+      }
+    },
+    {
+      "id": "thoracic-rotation",
+      "category": "spine",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Open Book", "en": "Open book" },
+      "notes": {
+        "de": "Seitlage, Knie angewinkelt, oberen Arm weit nach hinten aufdrehen, Blick folgt der Hand.",
+        "en": "Lie on your side with knees bent, open the top arm wide behind you and follow the hand with your eyes."
+      }
+    },
+    {
+      "id": "thread-the-needle",
+      "category": "spine",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Thread the Needle", "en": "Thread the needle" },
+      "notes": {
+        "de": "Im Vierfüßlerstand einen Arm unter dem Körper durchfädeln, Schulter und Schläfe ablegen.",
+        "en": "On all fours, thread one arm under your body and rest the shoulder and temple on the floor."
+      }
+    },
+    {
+      "id": "childs-pose",
+      "category": "spine",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "Kindhaltung", "en": "Child's pose" },
+      "notes": {
+        "de": "Gesäß zu den Fersen, Arme lang nach vorne, ruhig in den Rücken atmen.",
+        "en": "Sit back onto your heels, arms long in front, breathe calmly into your back."
+      }
+    },
+    {
+      "id": "cobra",
+      "category": "spine",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Kobra", "en": "Cobra" },
+      "notes": {
+        "de": "Bauchlage, Hände unter den Schultern, Oberkörper sanft aufrichten, Becken bleibt am Boden.",
+        "en": "Lie on your stomach with hands under your shoulders, gently lift the chest while the pelvis stays down."
+      }
+    },
+    {
+      "id": "camel",
+      "category": "spine",
+      "duration": 30,
+      "bilateral": false,
+      "name": { "de": "Kamel", "en": "Camel pose" },
+      "notes": {
+        "de": "Kniestand, Hände an die Fersen oder ins Kreuz, Hüfte nach vorne schieben, Brustbein hebt sich.",
+        "en": "Kneel upright, hands on heels or lower back, push the hips forward and lift the breastbone."
+      }
+    },
+    {
+      "id": "supine-twist",
+      "category": "spine",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Liegende Drehung", "en": "Supine twist" },
+      "notes": {
+        "de": "Rückenlage, ein Knie zur Gegenseite ablegen, Arme ausgebreitet, beide Schultern bleiben am Boden.",
+        "en": "Lie on your back, drop one knee across to the other side, arms wide, both shoulders stay down."
+      }
+    },
+    {
+      "id": "standing-side-bend",
+      "category": "spine",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Seitneigung im Stand", "en": "Standing side bend" },
+      "notes": {
+        "de": "Hüftbreiter Stand, einen Arm über den Kopf, Oberkörper zur Seite neigen, nicht nach vorne kippen.",
+        "en": "Stand hip-width apart, reach one arm overhead and bend sideways without tipping forward."
+      }
+    },
+    {
+      "id": "knees-to-chest",
+      "category": "spine",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Knie zur Brust", "en": "Knees to chest" },
+      "notes": {
+        "de": "Rückenlage, beide Knie umarmen und sanft zur Brust ziehen, unterer Rücken entspannt.",
+        "en": "Lie on your back, hug both knees and gently draw them to your chest, lower back relaxed."
+      }
+    },
+    {
+      "id": "jefferson-curl",
+      "category": "spine",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Jefferson Curl", "en": "Jefferson curl" },
+      "notes": {
+        "de": "Im Stand Wirbel für Wirbel nach unten rollen, Beine gestreckt, langsam wieder aufrollen. Ohne oder mit leichtem Gewicht.",
+        "en": "Standing, roll down one vertebra at a time with straight legs, then slowly roll back up. Bodyweight or a light weight."
+      }
+    },
+    {
+      "id": "pigeon",
+      "category": "hips",
+      "duration": 75,
+      "bilateral": true,
+      "name": { "de": "Taube", "en": "Pigeon pose" },
+      "notes": {
+        "de": "Vorderes Schienbein möglichst parallel zur Mattenkante, hinteres Bein lang, Hüfte gerade halten.",
+        "en": "Front shin as parallel to the front of the mat as possible, back leg long, keep the hips square."
+      }
+    },
+    {
+      "id": "90-90",
+      "category": "hips",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "90/90 Hip Switch", "en": "90/90 hip switch" },
+      "notes": {
+        "de": "Beide Knie im 90°-Winkel am Boden, kontrolliert von einer Seite zur anderen kippen.",
+        "en": "Sit with both knees bent at 90° on the floor and rotate from side to side with control."
+      }
+    },
+    {
+      "id": "figure-four",
+      "category": "hips",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Liegende Vier", "en": "Figure-four stretch" },
+      "notes": {
+        "de": "Rückenlage, Knöchel auf das gegenüberliegende Knie, Oberschenkel sanft zur Brust ziehen.",
+        "en": "Lie on your back, cross one ankle over the opposite knee and gently pull the thigh towards your chest."
+      }
+    },
+    {
+      "id": "lizard",
+      "category": "hips",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Eidechse", "en": "Lizard pose" },
+      "notes": {
+        "de": "Tiefer Ausfallschritt, beide Hände innen neben dem vorderen Fuß, Hüfte sinken lassen. Optional auf die Unterarme.",
+        "en": "Deep lunge with both hands inside the front foot, let the hips sink. Optionally lower to the forearms."
+      }
+    },
+    {
+      "id": "hip-cars",
+      "category": "hips",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Hüftkreisen im Vierfüßler", "en": "Quadruped hip circles" },
+      "notes": {
+        "de": "Im Vierfüßlerstand ein Knie langsam in möglichst großem Kreis führen, Rumpf bleibt ruhig.",
+        "en": "On all fours, move one knee in the largest circle you can control while the torso stays still."
+      }
+    },
+    {
+      "id": "happy-baby",
+      "category": "hips",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "Happy Baby", "en": "Happy baby" },
+      "notes": {
+        "de": "Rückenlage, Füße außen greifen, Knie Richtung Achseln ziehen, Kreuzbein bleibt am Boden.",
+        "en": "Lie on your back, hold the outside of your feet and draw the knees towards your armpits, tailbone down."
+      }
+    },
+    {
+      "id": "deep-squat",
+      "category": "hips",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "Tiefe Hocke", "en": "Deep squat" },
+      "notes": {
+        "de": "Fersen am Boden, Ellbogen drücken die Knie sanft nach außen, Brust aufrecht.",
+        "en": "Heels down, elbows gently press the knees outwards, chest up."
+      }
+    },
+    {
+      "id": "hip-flexor",
+      "category": "quads",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Hüftbeuger-Dehnung", "en": "Kneeling hip flexor stretch" },
+      "notes": {
+        "de": "Kniender Ausfallschritt, Becken aufrichten, Gesäß des hinteren Beins anspannen.",
+        "en": "Half-kneeling lunge, tuck the pelvis and squeeze the glute of the back leg."
+      }
+    },
+    {
+      "id": "couch-stretch",
+      "category": "quads",
+      "duration": 90,
+      "bilateral": true,
+      "switchTime": 12,
+      "name": { "de": "Couch Stretch", "en": "Couch stretch" },
+      "notes": {
+        "de": "Hinteres Knie an die Wand, Schienbein an der Wand hoch. Oberkörper langsam aufrichten.",
+        "en": "Back knee against the wall, shin up the wall. Slowly bring your torso upright."
+      }
+    },
+    {
+      "id": "standing-quad",
+      "category": "quads",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Oberschenkeldehnung im Stand", "en": "Standing quad stretch" },
+      "notes": {
+        "de": "Ferse zum Gesäß ziehen, Knie zeigen nach unten und bleiben nebeneinander, Becken leicht aufrichten.",
+        "en": "Pull the heel towards your glutes, knees point down and stay together, tuck the pelvis slightly."
+      }
+    },
+    {
+      "id": "seated-forward-fold",
+      "category": "hamstrings",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "Sitzende Vorbeuge", "en": "Seated forward fold" },
+      "notes": {
+        "de": "Beine gestreckt, Bauch Richtung Oberschenkel, aus der Hüfte kippen statt den Rücken zu runden.",
+        "en": "Legs straight, bring your belly towards your thighs by hinging at the hips rather than rounding the back."
+      }
+    },
+    {
+      "id": "standing-forward-fold",
+      "category": "hamstrings",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Stehende Vorbeuge", "en": "Standing forward fold" },
+      "notes": {
+        "de": "Aus dem Stand nach vorne hängen lassen, Knie leicht gebeugt erlaubt, Kopf und Nacken locker.",
+        "en": "Hang forward from standing, slightly bent knees are fine, head and neck relaxed."
+      }
+    },
+    {
+      "id": "half-split",
+      "category": "hamstrings",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Halber Spagat", "en": "Half split" },
+      "notes": {
+        "de": "Aus dem Kniestand vorderes Bein strecken, Fußspitze zeigt hoch, Hüfte nach hinten, Oberkörper lang nach vorne.",
+        "en": "From kneeling, straighten the front leg with toes up, shift the hips back and lengthen forward."
+      }
+    },
+    {
+      "id": "head-to-knee",
+      "category": "hamstrings",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Einbeinige Vorbeuge", "en": "Head-to-knee forward fold" },
+      "notes": {
+        "de": "Sitzend ein Bein gestreckt, die andere Fußsohle innen am Oberschenkel, über das gestreckte Bein nach vorne beugen.",
+        "en": "Seated with one leg straight and the other sole against the inner thigh, fold forward over the straight leg."
+      }
+    },
+    {
+      "id": "supine-hamstring",
+      "category": "hamstrings",
+      "duration": 60,
+      "bilateral": true,
+      "name": { "de": "Beinrückseite liegend mit Band", "en": "Supine hamstring stretch" },
+      "notes": {
+        "de": "Rückenlage, Band um den Fuß, gestrecktes Bein Richtung Decke ziehen, anderes Bein bleibt am Boden.",
+        "en": "Lie on your back with a band around one foot, pull the straight leg towards the ceiling, other leg stays down."
+      }
+    },
+    {
+      "id": "pancake",
+      "category": "adductors",
+      "duration": 90,
+      "bilateral": false,
+      "name": { "de": "Pancake", "en": "Pancake stretch" },
+      "notes": {
+        "de": "Gegrätschter Sitz, aus der Hüfte nach vorne kippen, Rücken lang, Kniescheiben zeigen nach oben.",
+        "en": "Straddle sit, tilt forward from the hips with a long back, kneecaps pointing up."
+      }
+    },
+    {
+      "id": "frog",
+      "category": "adductors",
+      "duration": 75,
+      "bilateral": false,
+      "name": { "de": "Frosch", "en": "Frog stretch" },
+      "notes": {
+        "de": "Knie weit auseinander, Unterschenkel parallel, Hüfte langsam Richtung Fersen schieben.",
+        "en": "Knees wide apart, shins parallel, slowly push the hips back towards your heels."
+      }
+    },
+    {
+      "id": "butterfly",
+      "category": "adductors",
+      "duration": 60,
+      "bilateral": false,
+      "name": { "de": "Schmetterling", "en": "Butterfly stretch" },
+      "notes": {
+        "de": "Fußsohlen zusammen, Knie fallen nach außen, mit langem Rücken leicht nach vorne kippen.",
+        "en": "Soles of the feet together, knees fall outwards, tilt slightly forward with a long back."
+      }
+    },
+    {
+      "id": "cossack-squat",
+      "category": "adductors",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Kosakenkniebeuge", "en": "Cossack squat" },
+      "notes": {
+        "de": "Breiter Stand, abwechselnd tief über ein Bein absenken, das andere Bein gestreckt, Fußspitze hoch.",
+        "en": "Wide stance, alternately sink deep over one leg while the other stays straight with toes up."
+      }
+    },
+    {
+      "id": "side-lunge",
+      "category": "adductors",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Seitlicher Ausfallschritt", "en": "Side lunge stretch" },
+      "notes": {
+        "de": "Breiter Stand, ein Knie beugen und Gewicht darüber verlagern, anderes Bein gestreckt, Füße flach.",
+        "en": "Wide stance, bend one knee and shift your weight over it, other leg straight, feet flat."
+      }
+    },
+    {
+      "id": "wall-calf",
+      "category": "calves",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "Wadendehnung an der Wand", "en": "Wall calf stretch" },
+      "notes": {
+        "de": "Hände an der Wand, hinteres Bein gestreckt, Ferse bleibt am Boden, Hüfte Richtung Wand schieben.",
+        "en": "Hands on the wall, back leg straight with the heel down, push the hips towards the wall."
+      }
+    },
+    {
+      "id": "ankle-rocks",
+      "category": "calves",
+      "duration": 30,
+      "bilateral": true,
+      "name": { "de": "Knöchelmobilisation kniend", "en": "Kneeling ankle rocks" },
+      "notes": {
+        "de": "Halbkniestand, vorderes Knie langsam über die Zehen nach vorne schieben, Ferse bleibt unten.",
+        "en": "Half-kneeling, slowly drive the front knee forward over the toes while the heel stays down."
+      }
+    },
+    {
+      "id": "toe-squat",
+      "category": "calves",
+      "duration": 30,
+      "bilateral": false,
+      "name": { "de": "Zehensitz", "en": "Toe squat" },
+      "notes": {
+        "de": "Kniend auf die aufgestellten Zehen setzen, Gewicht langsam nach hinten verlagern.",
+        "en": "Kneel with your toes tucked under and slowly sit your weight back onto your heels."
+      }
+    },
+    {
+      "id": "worlds-greatest",
+      "category": "fullBody",
+      "duration": 45,
+      "bilateral": true,
+      "name": { "de": "World's Greatest Stretch", "en": "World's greatest stretch" },
+      "notes": {
+        "de": "Ausfallschritt, Ellbogen Richtung Fußgewölbe, dann Arm zur Decke aufdrehen.",
+        "en": "Lunge, bring the elbow towards the arch of the front foot, then rotate the arm up to the ceiling."
+      }
+    },
+    {
+      "id": "downward-dog",
+      "category": "fullBody",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Herabschauender Hund", "en": "Downward dog" },
+      "notes": {
+        "de": "Hände und Füße am Boden, Hüfte hoch und nach hinten, Rücken lang, Fersen Richtung Boden.",
+        "en": "Hands and feet on the floor, hips high and back, long spine, heels reaching towards the floor."
+      }
+    },
+    {
+      "id": "squat-to-stand",
+      "category": "fullBody",
+      "duration": 45,
+      "bilateral": false,
+      "name": { "de": "Squat to Stand", "en": "Squat to stand" },
+      "notes": {
+        "de": "Zehenspitzen greifen, Gesäß in die Hocke sinken lassen, Brust hoch, dann Beine strecken. Im Wechsel.",
+        "en": "Hold your toes, sink into a squat with the chest up, then straighten the legs. Alternate."
+      }
+    }
+  ],
+  "routines": [
+    {
+      "name": { "de": "Morgen-Mobility", "en": "Morning mobility" },
+      "description": {
+        "de": "Kurzer Durchgang für Wirbelsäule und Hüfte, ca. 10 Minuten.",
+        "en": "A short round for spine and hips, about 10 minutes."
+      },
+      "prepTime": 5,
+      "restTime": 12,
+      "entries": [
+        { "exerciseId": "cat-cow" },
+        { "exerciseId": "worlds-greatest" },
+        { "exerciseId": "thoracic-rotation" },
+        { "exerciseId": "90-90" },
+        { "exerciseId": "deep-squat" },
+        { "exerciseId": "childs-pose" }
+      ]
+    },
+    {
+      "name": { "de": "Hüfte & Beine", "en": "Hips & legs" },
+      "description": {
+        "de": "Längere Haltezeiten für Hüftbeuger, Adduktoren und hintere Kette.",
+        "en": "Longer holds for hip flexors, adductors and the posterior chain."
+      },
+      "prepTime": 5,
+      "restTime": 15,
+      "entries": [
+        { "exerciseId": "hip-flexor" },
+        { "exerciseId": "couch-stretch" },
+        { "exerciseId": "pigeon" },
+        { "exerciseId": "frog" },
+        { "exerciseId": "pancake", "duration": 120 },
+        { "exerciseId": "seated-forward-fold" }
+      ]
+    },
+    {
+      "name": { "de": "Schreibtisch-Pause", "en": "Desk break" },
+      "description": {
+        "de": "Nacken, Schultern und Brustwirbelsäule nach langem Sitzen.",
+        "en": "Neck, shoulders and upper back after a long time sitting."
+      },
+      "prepTime": 5,
+      "restTime": 6,
+      "entries": [
+        { "exerciseId": "neck-side-stretch" },
+        { "exerciseId": "chin-tuck" },
+        { "exerciseId": "doorway-pec", "duration": 30 },
+        { "exerciseId": "standing-side-bend" },
+        { "exerciseId": "wall-calf", "duration": 30 }
+      ]
+    },
+    {
+      "name": { "de": "Ganzkörper-Dehnen", "en": "Full-body stretch" },
+      "description": {
+        "de": "Von oben nach unten durch den ganzen Körper, ca. 20 Minuten.",
+        "en": "Head to toe through the whole body, about 20 minutes."
+      },
+      "prepTime": 5,
+      "restTime": 12,
+      "entries": [
+        { "exerciseId": "neck-side-stretch" },
+        { "exerciseId": "cross-body-shoulder" },
+        { "exerciseId": "puppy-pose" },
+        { "exerciseId": "thread-the-needle" },
+        { "exerciseId": "cobra" },
+        { "exerciseId": "downward-dog" },
+        { "exerciseId": "lizard" },
+        { "exerciseId": "half-split" },
+        { "exerciseId": "butterfly" },
+        { "exerciseId": "supine-twist" },
+        { "exerciseId": "happy-baby" }
+      ]
+    }
+  ]
+}

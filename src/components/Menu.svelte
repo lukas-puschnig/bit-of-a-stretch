@@ -1,8 +1,11 @@
 <script lang="ts">
+  import type { MessageKey } from '../lib/i18n/messages'
+  import { t } from '../lib/i18n/i18n.svelte'
   import { href, router, type Route } from '../lib/router.svelte'
   import { library } from '../lib/stores/library.svelte'
   import { ui } from '../lib/stores/ui.svelte'
   import Icon, { type IconName } from './Icon.svelte'
+  import LanguageSwitch from './LanguageSwitch.svelte'
 
   let dialog: HTMLDialogElement | undefined = $state()
 
@@ -14,10 +17,10 @@
 
   const playing = $derived(router.route.name === 'play' ? router.route.routine : undefined)
 
-  const links: { route: Route; label: string; icon: IconName }[] = [
-    { route: { name: 'home' }, label: 'Routinen', icon: 'list' },
-    { route: { name: 'exercises' }, label: 'Übungsbibliothek', icon: 'dumbbell' },
-    { route: { name: 'data' }, label: 'Daten & Einstellungen', icon: 'database' },
+  const links: { route: Route; label: MessageKey; icon: IconName }[] = [
+    { route: { name: 'home' }, label: 'nav.routines', icon: 'list' },
+    { route: { name: 'exercises' }, label: 'nav.exercises', icon: 'dumbbell' },
+    { route: { name: 'data' }, label: 'nav.data', icon: 'database' },
   ]
 
   function close() {
@@ -31,10 +34,10 @@
   onclose={close}
   onclick={(e) => e.target === dialog && close()}
 >
-  <nav class="flex h-full flex-col gap-6 overflow-y-auto p-4" aria-label="Hauptmenü">
+  <nav class="flex h-full flex-col gap-6 overflow-y-auto p-4" aria-label={t('nav.label')}>
     <div class="flex items-center justify-between pl-2">
       <span class="font-semibold">Bit of a Stretch</span>
-      <button type="button" class="icon-btn" aria-label="Menü schließen" onclick={close}>
+      <button type="button" class="icon-btn" aria-label={t('nav.close')} onclick={close}>
         <Icon name="close" />
       </button>
     </div>
@@ -42,14 +45,16 @@
     {#if playing}
       <div class="flex flex-col gap-2">
         <a class="btn-danger justify-start" href={href({ name: 'home' })} onclick={close}>
-          <Icon name="back" class="size-5" /> Routine verlassen
+          <Icon name="back" class="size-5" />
+          {t('nav.leaveRoutine')}
         </a>
         <a
           class="btn-secondary justify-start"
           href={href({ name: 'edit-routine', routine: playing })}
           onclick={close}
         >
-          <Icon name="edit" class="size-5" /> Diese Routine bearbeiten
+          <Icon name="edit" class="size-5" />
+          {t('nav.editRoutine')}
         </a>
       </div>
     {/if}
@@ -66,7 +71,7 @@
             onclick={close}
           >
             <Icon name={link.icon} class="size-5 text-muted" />
-            {link.label}
+            {t(link.label)}
           </a>
         </li>
       {/each}
@@ -74,11 +79,13 @@
 
     <section>
       <div class="mb-2 flex items-center justify-between pl-3">
-        <h2 class="text-xs font-medium tracking-wide text-muted uppercase">Routine starten</h2>
+        <h2 class="text-xs font-medium tracking-wide text-muted uppercase">
+          {t('nav.startRoutine')}
+        </h2>
         <a
           class="icon-btn size-9"
           href={href({ name: 'edit-routine' })}
-          aria-label="Neue Routine"
+          aria-label={t('nav.newRoutine')}
           onclick={close}
         >
           <Icon name="plus" class="size-5" />
@@ -102,6 +109,9 @@
         {/each}
       </ul>
     </section>
+    <div class="mt-auto">
+      <LanguageSwitch compact />
+    </div>
   </nav>
 </dialog>
 

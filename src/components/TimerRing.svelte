@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { t } from '../lib/i18n/i18n.svelte'
+
   interface Props {
     /** Fraction of the current phase that has passed, 0…1. */
     progress: number
@@ -7,10 +9,21 @@
     color: string
     paused: boolean
     image?: string
+    /** Flip the image, so one picture serves both sides. */
+    mirrored?: boolean
     ontoggle: () => void
   }
 
-  let { progress, digits, label, color, paused, image, ontoggle }: Props = $props()
+  let {
+    progress,
+    digits,
+    label,
+    color,
+    paused,
+    image,
+    mirrored = false,
+    ontoggle,
+  }: Props = $props()
 
   const id = $props.id()
   const RADIUS = 90
@@ -25,7 +38,7 @@
     type="button"
     class="rounded-full focus-visible:outline-offset-4"
     style="width: min(100cqw, 100cqh); height: min(100cqw, 100cqh)"
-    aria-label={paused ? 'Fortsetzen' : 'Pausieren'}
+    aria-label={paused ? t('player.resume') : t('player.pause')}
     onclick={ontoggle}
   >
     <svg viewBox="0 0 200 200" class="h-full w-full" role="img" aria-label="{label}: {digits}">
@@ -36,15 +49,17 @@
       </defs>
 
       {#if image}
-        <image
-          href={image}
-          x="9"
-          y="9"
-          width="182"
-          height="182"
-          preserveAspectRatio="xMidYMid slice"
-          clip-path="url(#{id}-clip)"
-        />
+        <g transform={mirrored ? 'translate(200 0) scale(-1 1)' : undefined}>
+          <image
+            href={image}
+            x="9"
+            y="9"
+            width="182"
+            height="182"
+            preserveAspectRatio="xMidYMid slice"
+            clip-path="url(#{id}-clip)"
+          />
+        </g>
         <circle cx="100" cy="100" r={RADIUS - 9} fill="black" opacity="0.5" />
       {/if}
 
@@ -99,7 +114,7 @@
           class="fill-muted"
           font-size="11"
           font-weight="500"
-          letter-spacing="1">PAUSIERT</text
+          letter-spacing="1">{t('player.paused').toUpperCase()}</text
         >
       {/if}
     </svg>

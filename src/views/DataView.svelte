@@ -1,19 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import Icon from '../components/Icon.svelte'
+  import LanguageSwitch from '../components/LanguageSwitch.svelte'
   import PageLayout from '../components/PageLayout.svelte'
-  import SecondsInput from '../components/SecondsInput.svelte'
+  import Stepper from '../components/Stepper.svelte'
+  import Switch from '../components/Switch.svelte'
+  import { Announcer } from '../lib/audio/speech'
+  import { t, tc } from '../lib/i18n/i18n.svelte'
   import { parseBackup, type Backup } from '../lib/model/backup'
+  import { THEME_PREFERENCES, TIMING } from '../lib/model/types'
   import { ValidationError } from '../lib/model/validation'
   import { isStoragePersisted, requestPersistentStorage } from '../lib/storage/db'
   import { library, type ImportMode } from '../lib/stores/library.svelte'
-  import type { ThemePreference } from '../lib/model/types'
-
-  const THEME_OPTIONS: { value: ThemePreference; label: string }[] = [
-    { value: 'system', label: 'System' },
-    { value: 'light', label: 'Hell' },
-    { value: 'dark', label: 'Dunkel' },
-  ]
 
   let persisted = $state<boolean>()
   let pending = $state<Backup>()
@@ -24,10 +22,14 @@
     persisted = await isStoragePersisted()
   })
 
+  const counts = (backup: { exercises: unknown[]; routines: unknown[] }) => ({
+    exercises: tc('count.exercises', backup.exercises.length),
+    routines: tc('count.routines', backup.routines.length),
+  })
+
   async function requestPersist() {
     persisted = await requestPersistentStorage()
-    if (!persisted)
-      message = { text: 'Der Browser hat dauerhaften Speicher abgelehnt.', error: true }
+    if (!persisted) message = { text: t('data.persistDenied'), error: true }
   }
 
   function exportFile() {
@@ -39,7 +41,7 @@
     link.download = `bit-of-a-stretch-${backup.exportedAt.slice(0, 10)}.json`
     link.click()
     URL.revokeObjectURL(url)
-    message = { text: 'Backup exportiert.' }
+    message = { text: t('data.exported') }
   }
 
   async function readFile(event: Event) {
@@ -51,7 +53,7 @@
     } catch (error) {
       pending = undefined
       const text =
-        error instanceof ValidationError ? error.message : 'Datei konnte nicht gelesen werden.'
+        error instanceof ValidationError ? t(error.key, error.params) : t('data.readError')
       message = { text, error: true }
     } finally {
       if (fileInput) fileInput.value = ''
@@ -61,22 +63,25 @@
   async function applyImport(mode: ImportMode) {
     if (!pending) return
     await library.importBackup(pending, mode)
-    message = {
-      text: `${pending.exercises.length} Übungen und ${pending.routines.length} Routinen importiert.`,
-    }
+    message = { text: t('data.imported', counts(pending)) }
     pending = undefined
   }
 
+  async function addCatalog() {
+    const added = await library.addMissingCatalogExercises(library.settings.language)
+    message = { text: t('data.catalogDone', { exercises: tc('count.exercises', added) }) }
+  }
+
   async function resetToSamples() {
-    if (!confirm('Alle Übungen und Routinen durch die Beispieldaten ersetzen?')) return
-    await library.loadSampleData()
-    message = { text: 'Beispieldaten geladen.' }
+    if (!confirm(t('data.resetConfirm'))) return
+    await library.loadSampleData(library.settings.language)
+    message = { text: t('data.resetDone') }
   }
 
   let defaultSwitchTime = $derived(library.settings.defaultSwitchTime)
 </script>
 
-<PageLayout title="Daten & Einstellungen" back={{ name: 'home' }}>
+<PageLayout title={t('data.title')} back={{ name: 'home' }}>
   <div class="flex flex-col gap-6">
     <section
       class="flex gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-fg"
@@ -84,13 +89,11 @@
       <Icon name="info" class="size-5 shrink-0 text-warning" />
       <div class="space-y-2">
         <p>
-          Deine Übungen und Routinen liegen <strong>nur in diesem Browser auf diesem Gerät</strong>.
-          Wenn du Website-Daten löschst, im privaten Modus surfst oder das Gerät wechselst, sind sie
-          weg.
+          {t('data.noticeLead')} <strong>{t('data.noticeStrong')}</strong>{t('data.noticeRest')}
         </p>
-        <p>Exportiere regelmäßig ein Backup. Darüber kannst du auch zwischen Geräten übertragen.</p>
-        {#if library.storageError}
-          <p class="font-medium text-danger">{library.storageError}</p>
+        <p>{t('data.noticeExport')}</p>
+        {#if library.storageUnavailable}
+          <p class="font-medium text-danger">{t('data.storageUnavailable')}</p>
         {/if}
       </div>
     </section>
@@ -107,17 +110,73 @@
       </p>
     {/if}
 
+    <section class="flex flex-col gap-4 card p-4">
+      <h2 class="font-semibold">{t('data.settings')}</h2>
+      <div>
+        <p class="label">{t('data.language')}</p>
+        <LanguageSwitch />
+      </div>
+      <fieldset>
+        <legend class="label">{t('data.theme')}</legend>
+        <div class="grid grid-cols-3 gap-1 rounded-xl bg-surface-2 p-1">
+          {#each THEME_PREFERENCES as option (option)}
+            <label
+              class={[
+                'cursor-pointer rounded-lg py-2 text-center text-sm font-medium transition-colors has-focus-visible:outline-2 has-focus-visible:outline-accent',
+                library.settings.theme === option
+                  ? 'bg-surface text-fg shadow-sm'
+                  : 'text-muted hover:text-fg',
+              ]}
+            >
+              <input
+                type="radio"
+                name="theme"
+                class="sr-only"
+                value={option}
+                checked={library.settings.theme === option}
+                onchange={() => library.updateSettings({ theme: option })}
+              />
+              {t(`theme.${option}`)}
+            </label>
+          {/each}
+        </div>
+      </fieldset>
+      <Switch
+        label={t('sound.beeps')}
+        hint={t('sound.beepsHint')}
+        checked={library.settings.audioEnabled}
+        onchange={(audioEnabled) => library.updateSettings({ audioEnabled })}
+      />
+      <Switch
+        label={t('sound.voice')}
+        hint={Announcer.supported ? t('sound.voiceHint') : t('sound.voiceUnavailable')}
+        checked={library.settings.voiceEnabled && Announcer.supported}
+        disabled={!Announcer.supported}
+        onchange={(voiceEnabled) => library.updateSettings({ voiceEnabled })}
+      />
+      <div class="max-w-52">
+        <Stepper
+          label={t('data.defaultSwitch')}
+          step={TIMING.switch.step}
+          bind:value={
+            () => defaultSwitchTime,
+            (v) => void library.updateSettings({ defaultSwitchTime: v ?? 0 })
+          }
+        />
+      </div>
+    </section>
+
     <section class="card p-4">
-      <h2 class="font-semibold">Backup</h2>
-      <p class="mt-1 text-sm text-muted">
-        Alle Übungen, Routinen und Einstellungen als JSON-Datei.
-      </p>
+      <h2 class="font-semibold">{t('data.backup')}</h2>
+      <p class="mt-1 text-sm text-muted">{t('data.backupHint')}</p>
       <div class="mt-4 flex flex-wrap gap-2">
         <button type="button" class="btn-primary" onclick={exportFile}>
-          <Icon name="download" class="size-4" /> Exportieren
+          <Icon name="download" class="size-4" />
+          {t('data.export')}
         </button>
         <button type="button" class="btn-secondary" onclick={() => fileInput?.click()}>
-          <Icon name="upload" class="size-4" /> Importieren …
+          <Icon name="upload" class="size-4" />
+          {t('data.import')}
         </button>
         <input
           bind:this={fileInput}
@@ -131,112 +190,63 @@
       {#if pending}
         <div class="mt-4 rounded-xl bg-surface-2 p-4 text-sm">
           <p>
-            Backup vom {new Date(pending.exportedAt).toLocaleString('de-DE')}:
-            <strong>{pending.exercises.length} Übungen</strong>,
-            <strong>{pending.routines.length} Routinen</strong>.
+            {t('data.pending', {
+              date: new Date(pending.exportedAt).toLocaleString(library.settings.language),
+              ...counts(pending),
+            })}
           </p>
           <div class="mt-3 flex flex-wrap gap-2">
             <button type="button" class="btn-primary" onclick={() => applyImport('merge')}
-              >Zusammenführen</button
+              >{t('data.merge')}</button
             >
             <button type="button" class="btn-danger" onclick={() => applyImport('replace')}
-              >Alles ersetzen</button
+              >{t('data.replace')}</button
             >
             <button type="button" class="btn-secondary" onclick={() => (pending = undefined)}
-              >Abbrechen</button
+              >{t('common.cancel')}</button
             >
           </div>
-          <p class="mt-2 text-xs text-muted">
-            Zusammenführen überschreibt gleichnamige Routinen und Übungen mit gleicher ID und behält
-            alles andere.
-          </p>
+          <p class="mt-2 text-xs text-muted">{t('data.mergeHint')}</p>
         </div>
       {/if}
     </section>
 
     <section class="card p-4">
-      <h2 class="font-semibold">Dauerhafter Speicher</h2>
+      <h2 class="font-semibold">{t('data.persistTitle')}</h2>
       <p class="mt-1 text-sm text-muted">
         {#if persisted === undefined}
-          Wird geprüft …
+          {t('data.persistChecking')}
         {:else if persisted}
-          Aktiv: Der Browser löscht die Daten nicht von sich aus, wenn der Speicher knapp wird.
+          {t('data.persistOn')}
         {:else}
-          Nicht aktiv: Der Browser darf die Daten bei Speichermangel löschen.
+          {t('data.persistOff')}
         {/if}
       </p>
       {#if persisted === false}
         <button type="button" class="mt-3 btn-secondary" onclick={requestPersist}
-          >Dauerhaften Speicher anfragen</button
+          >{t('data.persistRequest')}</button
         >
       {/if}
     </section>
 
-    <section class="flex flex-col gap-4 card p-4">
-      <h2 class="font-semibold">Einstellungen</h2>
-      <fieldset>
-        <legend class="label">Darstellung</legend>
-        <div class="grid grid-cols-3 gap-1 rounded-xl bg-surface-2 p-1">
-          {#each THEME_OPTIONS as option (option.value)}
-            <label
-              class={[
-                'cursor-pointer rounded-lg py-2 text-center text-sm font-medium transition-colors has-focus-visible:outline-2 has-focus-visible:outline-accent',
-                library.settings.theme === option.value
-                  ? 'bg-surface text-fg shadow-sm'
-                  : 'text-muted hover:text-fg',
-              ]}
-            >
-              <input
-                type="radio"
-                name="theme"
-                class="sr-only"
-                value={option.value}
-                checked={library.settings.theme === option.value}
-                onchange={() => library.updateSettings({ theme: option.value })}
-              />
-              {option.label}
-            </label>
-          {/each}
-        </div>
-      </fieldset>
-      <label class="flex items-center justify-between gap-3">
-        <span>
-          <span class="block">Ton</span>
-          <span class="block text-xs text-muted"
-            >Signale bei Phasenwechsel und in den letzten drei Sekunden</span
-          >
-        </span>
-        <input
-          type="checkbox"
-          class="size-5 accent-accent"
-          checked={library.settings.audioEnabled}
-          onchange={(e) => library.updateSettings({ audioEnabled: e.currentTarget.checked })}
-        />
-      </label>
-      <div class="max-w-48">
-        <SecondsInput
-          label="Standard-Seitenwechsel"
-          bind:value={
-            () => defaultSwitchTime,
-            (v) => void library.updateSettings({ defaultSwitchTime: v ?? 0 })
-          }
-        />
-      </div>
+    <section class="card p-4">
+      <h2 class="font-semibold">{t('data.catalog')}</h2>
+      <p class="mt-1 text-sm text-muted">{t('data.catalogHint')}</p>
+      <button type="button" class="mt-3 btn-secondary" onclick={addCatalog}
+        >{t('data.catalogButton')}</button
+      >
     </section>
 
     <section class="card p-4 text-sm">
-      <h2 class="font-semibold">Über & Lizenzen</h2>
-      <p class="mt-1 text-muted">
-        Bit of a Stretch verwendet nur freie Open-Source-Software unter MIT- bzw. ISC-Lizenz und die
-        Systemschrift deines Geräts.
-      </p>
+      <h2 class="font-semibold">{t('data.about')}</h2>
+      <p class="mt-1 text-muted">{t('data.aboutText')}</p>
       <ul class="mt-2 flex flex-col gap-1">
         <li>
           <a
             class="text-accent underline"
             href="{import.meta.env.BASE_URL}third-party-licenses.md"
             target="_blank"
-            rel="noopener">Lizenzhinweise der App-Pakete (Svelte, idb, clsx)</a
+            rel="noopener">{t('data.licenses')}</a
           >
         </li>
         <li>
@@ -244,17 +254,17 @@
             class="text-accent underline"
             href="https://github.com/GoogleChrome/workbox/blob/v7/LICENSE"
             target="_blank"
-            rel="noopener">Workbox (Offline-Unterstützung), MIT, © Google LLC</a
+            rel="noopener">{t('data.workbox')}</a
           >
         </li>
       </ul>
     </section>
 
     <section class="card p-4">
-      <h2 class="font-semibold">Zurücksetzen</h2>
-      <p class="mt-1 text-sm text-muted">Ersetzt alle Daten durch die mitgelieferten Beispiele.</p>
+      <h2 class="font-semibold">{t('data.reset')}</h2>
+      <p class="mt-1 text-sm text-muted">{t('data.resetHint')}</p>
       <button type="button" class="mt-3 btn-danger" onclick={resetToSamples}
-        >Beispieldaten laden</button
+        >{t('data.resetButton')}</button
       >
     </section>
   </div>

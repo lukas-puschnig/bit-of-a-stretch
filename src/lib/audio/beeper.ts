@@ -39,12 +39,30 @@ export class Beeper {
     }
   }
 
-  finished() {
-    this.play(
-      { frequency: 660, duration: 0.18 },
-      { frequency: 880, duration: 0.18, at: 0.2 },
-      { frequency: 1320, duration: 0.5, at: 0.4, volume: 0.35 },
-    )
+  /** A soft gong: inharmonic partials that ring out, higher ones fading faster. */
+  gong() {
+    const ctx = this.context
+    if (!ctx || ctx.state !== 'running') return
+    const base = 196
+    const partials = [
+      { ratio: 1, volume: 0.32, decay: 4.5 },
+      { ratio: 2.76, volume: 0.16, decay: 3 },
+      { ratio: 5.4, volume: 0.08, decay: 1.8 },
+      { ratio: 8.93, volume: 0.04, decay: 1 },
+    ]
+    const start = ctx.currentTime + 0.02
+    for (const { ratio, volume, decay } of partials) {
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = 'sine'
+      osc.frequency.value = base * ratio
+      gain.gain.setValueAtTime(0, start)
+      gain.gain.linearRampToValueAtTime(volume, start + 0.008)
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + decay)
+      osc.connect(gain).connect(ctx.destination)
+      osc.start(start)
+      osc.stop(start + decay)
+    }
   }
 
   private play(...tones: Tone[]) {
