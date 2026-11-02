@@ -21,6 +21,9 @@ export default defineConfig({
       manifest: {
         name: 'Bit of a Stretch',
         short_name: 'Stretch',
+        id: base,
+        start_url: base,
+        scope: base,
         description: 'Timer für Mobility- und Dehnroutinen',
         lang: 'de',
         theme_color: '#0b0d12',
@@ -33,7 +36,11 @@ export default defineConfig({
           { src: 'pwa-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
+      injectRegister: 'auto',
       workbox: {
+        // Unique cache names so a second PWA on the same origin cannot collide.
+        cacheId: 'bit-of-a-stretch-v2',
+        cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,png,webp,jpg,woff2}'],
       },
     }),
